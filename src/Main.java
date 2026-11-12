@@ -66,7 +66,7 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
     int opcao2 = 0;
     Scanner sc = new Scanner(System.in);
 
-    while (opcao2 != 7) {
+    while (opcao2 != 8) {
 
         System.out.println("1-Cadastrar empregado");
         System.out.println("2-Listar empregados");
@@ -74,8 +74,8 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         System.out.println("4-Remover empregado");
         System.out.println("5-Atualizar dados do empregado");
         System.out.println("6-Emprestar livros");
-        System.out.println("7-Voltar");
-
+        System.out.println("7-Listar empréstimos");
+        System.out.println("8-Voltar");
         opcao2 = sc.nextInt();
         sc.nextLine();
         switch (opcao2){

@@ -2,13 +2,15 @@ package Controle;
 import BibliotecaM.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Controle.*;
 
 public class EmpregadoC {
     public ArrayList<EmpregadoM> vetEmpregado;
 
+    public ArrayList<String> vetEmprestimo;
+
     public EmpregadoC(){
         vetEmpregado = new ArrayList<EmpregadoM>();
+        vetEmprestimo = new ArrayList<String>();
     }
 
     public void CadastroDadosPessoais(EmpregadoM dpm){
@@ -168,6 +170,10 @@ public class EmpregadoC {
         String nomeEmpregado = sc.nextLine();
         for (EmpregadoM empregado : vetEmpregado) {
             if (empregado.getNome().equalsIgnoreCase(nomeEmpregado)) {
+                System.out.println("Livros disponiveis para emprestimo: ");
+                for (Livros livro : biblioteca.getVetBiblioteca()) {
+                    System.out.println("- " + livro.getNomeDoLivro());
+                }
                 System.out.println("Digite o nome do livro que deseja emprestar: ");
                 String nomeLivro = sc.nextLine();
                 for (Livros livro : biblioteca.getVetBiblioteca()) {
@@ -179,6 +185,8 @@ public class EmpregadoC {
                             if (cliente.getCPF().equals(cpfFormatado)) {
                                 if (livro.getQuantidade() > 0) {
                                     livro.setQuantidade(livro.getQuantidade() - 1);
+
+                                    vetEmprestimo.add("Empregado: " + empregado.getNome() + ", Livro: " + livro.getNomeDoLivro() + ", Cliente: " + cliente.getNome());
                                     System.out.println("Empréstimo realizado com sucesso!");
                                     return;
                                 } else {
@@ -194,6 +202,36 @@ public class EmpregadoC {
                 System.out.println("Livro não encontrado.");
                 return;
             }
+        }
+    }
+    public void ListarEmprestimo(){
+        if (vetEmprestimo.isEmpty()) {
+            System.out.println("Sem empréstimos realizados");
+            return;
+        }
+        System.out.println("Empréstimos realizados:");
+        for (String emprestimo : vetEmprestimo) {
+            System.out.println(emprestimo);
+        }
+    }
+    public void ConsultarEmprestimoPorCPF(){
+        if (vetEmprestimo.isEmpty()) {
+            System.out.println("Sem empréstimos realizados");
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o CPF do cliente que deseja consultar os empréstimos: ");
+        String cpfCliente = sc.nextLine();
+        String cpfFormatado = formatarCPF(cpfCliente);
+        boolean encontrouEmprestimo = false;
+        for (String emprestimo : vetEmprestimo) {
+            if (emprestimo.contains(cpfFormatado)) {
+                System.out.println(emprestimo);
+                encontrouEmprestimo = true;
+            }
+        }
+        if (!encontrouEmprestimo) {
+            System.out.println("Nenhum empréstimo encontrado para o CPF informado.");
         }
     }
 }

@@ -2,7 +2,6 @@ package Controle;
 import BibliotecaM.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Controle.*;
 
 public class ClienteC {
     public ArrayList<ClienteM> vetClientes;
@@ -162,9 +161,10 @@ public class ClienteC {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o CPF do cliente que deseja devolver o livro: ");
         String cpfcliente = sc.nextLine();
+        String cpfFormatado = formatarCPF(cpfcliente);
 
         for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
+            if(cliente.getCPF().equals(cpfFormatado)){
                 System.out.println("Digite o nome do livro a ser devolvido: ");
                 String nomelivro = sc.nextLine();
                 for(Livros livro : biblioteca.getVetBiblioteca()){
