@@ -75,8 +75,7 @@ public class EmpregadoC {
         throw new IllegalArgumentException("Telefone inválido. Deve conter 11 dígitos.");
     }
     public void ListarEmpregado(){
-        if(vetEmpregado.isEmpty()){
-            System.out.println("Sem empregados cadastrados");
+        if(SemEmpregado()){
             return;
         }
         for (EmpregadoM empregado : vetEmpregado){
@@ -84,8 +83,7 @@ public class EmpregadoC {
         }
     }
     public void BuscarEmpregado(){
-        if(vetEmpregado.isEmpty()){
-            System.out.println("Sem empregados cadastrados");
+        if(SemEmpregado()){
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -96,15 +94,11 @@ public class EmpregadoC {
                 empregado.PrintEmpregado();
                 return;
             }
-            else{
-                System.out.println("Empregado não encontrado.");
-                return;
-            }
         }
+        System.out.println("Empregado não encontrado.");
     }
     public void RemoveEmpregado(){
-        if(vetEmpregado.isEmpty()){
-            System.out.println("Sem empregados cadastrados");
+        if(SemEmpregado()){
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -119,8 +113,7 @@ public class EmpregadoC {
         }
     }
     public void AtualizarDadosEmpregado(){
-        if(vetEmpregado.isEmpty()){
-            System.out.println("Sem empregados cadastrados");
+        if(SemEmpregado()){
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -186,7 +179,7 @@ public class EmpregadoC {
                                 if (livro.getQuantidade() > 0) {
                                     livro.setQuantidade(livro.getQuantidade() - 1);
 
-                                    vetEmprestimo.add("Empregado: " + empregado.getNome() + ", Livro: " + livro.getNomeDoLivro() + ", Cliente: " + cliente.getNome());
+                                    vetEmprestimo.add("Empregado: " + empregado.getNome() + ", Livro: " + livro.getNomeDoLivro() + ", Cliente: " + cliente.getNome() + ", CPF: " + cliente.getCPF());
                                     System.out.println("Empréstimo realizado com sucesso!");
                                     return;
                                 } else {
@@ -205,8 +198,7 @@ public class EmpregadoC {
         }
     }
     public void ListarEmprestimo(){
-        if (vetEmprestimo.isEmpty()) {
-            System.out.println("Sem empréstimos realizados");
+        if (SemEmprestimo()){
             return;
         }
         System.out.println("Empréstimos realizados:");
@@ -215,23 +207,37 @@ public class EmpregadoC {
         }
     }
     public void ConsultarEmprestimoPorCPF(){
-        if (vetEmprestimo.isEmpty()) {
-            System.out.println("Sem empréstimos realizados");
+        if (SemEmprestimo()){
             return;
         }
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o CPF do cliente que deseja consultar os empréstimos: ");
         String cpfCliente = sc.nextLine();
         String cpfFormatado = formatarCPF(cpfCliente);
-        boolean encontrouEmprestimo = false;
-        for (String emprestimo : vetEmprestimo) {
+        int encontrado = 0;
+        for(String emprestimo : vetEmprestimo) {
             if (emprestimo.contains(cpfFormatado)) {
                 System.out.println(emprestimo);
-                encontrouEmprestimo = true;
+                encontrado++;
             }
         }
-        if (!encontrouEmprestimo) {
-            System.out.println("Nenhum empréstimo encontrado para o CPF informado.");
+        if(encontrado == 0){
+        System.out.println("Nao existe emprestimo para o CPF informado.");
         }
+    }
+    private boolean SemEmprestimo(){
+        if (vetEmprestimo.isEmpty()){
+            System.out.println("Sem emprestimos realizados");
+            return true;
+        }
+        return false;
+    }
+    private boolean SemEmpregado(){
+        if (vetEmpregado.isEmpty()){
+            System.out.println("Sem empregados cadastrados");
+            return true;
+        }
+        return false;
     }
 }

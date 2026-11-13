@@ -36,18 +36,16 @@ public class BibliotecaC {
         System.out.println("Livro cadastrado");
     }
     public void ListarLivros(){
-        if(vetBiblioteca.isEmpty()){
-            System.out.println("Sem livros cadastrados");
-                return;
+        if(SemLivros()){
+            return;
         }
         for (Livros biblioteca : vetBiblioteca){
             biblioteca.PrintBiblioteca();
         }
     }
     public void BuscarLivro(){
-        if(vetBiblioteca.isEmpty()){
-            System.out.println("Sem livros cadastrados");
-                return;
+        if(SemLivros()){
+            return;
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o nome do livro que deseja buscar: ");
@@ -57,16 +55,12 @@ public class BibliotecaC {
                 livro.PrintBiblioteca();
                 return;
             }
-            else {
-                System.out.println("Livro não encontrado.");
-                return;
-            }
         }
-    }
+        System.out.println("Livro não encontrado.");
+    }   
     public void RemoveLivro(){
-        if(vetBiblioteca.isEmpty()){
-            System.out.println("Sem livros cadastrados");
-                return;
+        if(SemLivros()){
+            return;
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o nome do livro que deseja remover: ");
@@ -80,8 +74,7 @@ public class BibliotecaC {
         }
     }
     public void AtualizarDadosLivros(){
-        if(vetBiblioteca.isEmpty()){
-            System.out.println("Sem livros cadastrados");
+        if(SemLivros()){
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -111,8 +104,7 @@ public class BibliotecaC {
         }
     }
     public void AlterarEstoque(){
-        if (vetBiblioteca.isEmpty()){
-            System.out.println("Sem  livros cadastrados");
+        if(SemLivros()){
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -146,5 +138,77 @@ public class BibliotecaC {
             }
         }
     }
+    public void ListarLivrosPorGenero(){
+        if(SemLivros()){
+            return;
+        }
+        System.out.println("Generos disponiveis:");
+        for(Livros livro : vetBiblioteca){
+            System.out.println("- " + livro.getGenero());
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o gênero que deseja listar os livros: ");
+        String genero = sc.nextLine();
+        int encontrado = 0;
+        for (Livros livro : vetBiblioteca){
+            if(livro.getGenero().equalsIgnoreCase(genero)){
+                livro.PrintBiblioteca();
+                encontrado++;
+            }
+        }
+        if(encontrado==0){
+            System.out.println("Nao existe livro cadastrado com esse genero");
+        }
+    }
+    public void ListarLivrosPorAutor(){
+        if(SemLivros()){
+            return;
+        }
+        System.out.println("Autores disponiveis: ");
+        for(Livros livro : vetBiblioteca){
+            System.out.println("- " + livro.getAutor());
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o autor que deseja listar os livros: ");
+        String autor = sc.nextLine();
+        int encontrado = 0;
+        for (Livros livro : vetBiblioteca){
+            if(livro.getAutor().equalsIgnoreCase(autor)){
+                livro.PrintBiblioteca();
+                encontrado++;
+            }
+        }
+        if(encontrado==0){
+            System.out.println("Nao existe livro cadastrado com esse genero");
+        }
+    }
+    public void ListarLivrosPor(){
+        if(SemLivros()){
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        int opcao = 0;
+        while(opcao!=3){
+            System.out.println("1-Listar livros por genero");
+            System.out.println("2-Listar livros por autor");
+            System.out.println("3-Voltar");
+            opcao = sc.nextInt();
+            sc.nextLine();
+            switch(opcao){
+                case 1 -> ListarLivrosPorGenero();
+                case 2 -> ListarLivrosPorAutor();
+                case 3 -> System.out.println("Voltando ao menu principal");
+                default -> System.out.println("Opcao invalida");
+            }
+        }
+    }
+    private boolean SemLivros(){
+        if (vetBiblioteca.isEmpty()){
+            System.out.println("Sem livros no estoque");
+            return true;
+        }
+        return false;
+    }
 }
+
 

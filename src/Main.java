@@ -23,7 +23,7 @@ public class Main {
             switch (opcao) {
                 case 1 -> menuLivros(biblioteca);
                 case 2 -> menuEmpregado(empregado, biblioteca, cliente);
-                case 3 -> menuCliente(cliente, biblioteca);
+                case 3 -> menuCliente(cliente, biblioteca, empregado);
                 case 4 -> System.out.println("Saindo do programa");
                 default -> System.out.println("Opcao invalida");
             }
@@ -36,14 +36,15 @@ public class Main {
 
         int opcao2 = 0;
 
-        while (opcao2 != 7) {
+        while (opcao2 != 8) {
             System.out.println("1-Cadastrar livro");
             System.out.println("2-Listar livros");
             System.out.println("3-Buscar livro");
             System.out.println("4-Remover livro");
             System.out.println("5-Atualizar dados do livro");
             System.out.println("6-Alterar estoque do livro");
-            System.out.println("7-Voltar");
+            System.out.println("7-Listar livros por genero ou autor");
+            System.out.println("8-Voltar");
 
             opcao2 = sc.nextInt();
             sc.nextLine();
@@ -55,7 +56,8 @@ public class Main {
                 case 4 -> biblioteca.RemoveLivro();
                 case 5 -> biblioteca.AtualizarDadosLivros();
                 case 6 -> biblioteca.AlterarEstoque();
-                case 7 -> System.out.println("Voltando ao menu principal...");
+                case 7 -> biblioteca.ListarLivrosPor();
+                case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }
         }
@@ -66,7 +68,7 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
     int opcao2 = 0;
     Scanner sc = new Scanner(System.in);
 
-    while (opcao2 != 8) {
+    while (opcao2 != 9) {
 
         System.out.println("1-Cadastrar empregado");
         System.out.println("2-Listar empregados");
@@ -75,7 +77,8 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         System.out.println("5-Atualizar dados do empregado");
         System.out.println("6-Emprestar livros");
         System.out.println("7-Listar empréstimos");
-        System.out.println("8-Voltar");
+        System.out.println("8-Consultar empréstimos por CPF");
+        System.out.println("9-Voltar");
         opcao2 = sc.nextInt();
         sc.nextLine();
         switch (opcao2){
@@ -87,18 +90,20 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         case 4 -> empregado.RemoveEmpregado();
         case 5 -> empregado.AtualizarDadosEmpregado();
         case 6 -> empregado.EmprestarLivros(biblioteca, cliente);
-        case 7 -> System.out.println("Voltando ao menu principal...");
+        case 7 -> empregado.ListarEmprestimo();
+        case 8 -> empregado.ConsultarEmprestimoPorCPF();
+        case 9 -> System.out.println("Voltando ao menu principal...");
         default -> System.out.println("Opcao invalida");
         }
     }
 }
 
-    private static void menuCliente(ClienteC cliente, BibliotecaC biblioteca){
+    private static void menuCliente(ClienteC cliente, BibliotecaC biblioteca, EmpregadoC empregado) {
 
         int opcao2 = 0;
         Scanner sc = new Scanner(System.in);
 
-        while (opcao2 != 7) {
+        while (opcao2 != 8) {
 
         System.out.println("1-Cadastrar cliente");
         System.out.println("2-Listar clientes");
@@ -106,7 +111,8 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         System.out.println("4-Remover cliente");
         System.out.println("5-Atualizar dados do cliente");
         System.out.println("6-Devolver livro");
-        System.out.println("7-Voltar");
+        System.out.println("7-Consultar empréstimos por CPF");
+        System.out.println("8-Voltar");
             
         opcao2 = sc.nextInt();
         sc.nextLine();
@@ -117,8 +123,9 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
                 case 3 -> cliente.BuscarClientePorCPF();
                 case 4 -> cliente.RemoverClientePorCPF();
                 case 5 -> cliente.AtualizarDadosCliente();
-                case 6 -> cliente.DevolverLivro(biblioteca);
-                case 7 -> System.out.println("Voltando ao menu principal...");
+                case 6 -> cliente.DevolverLivro(biblioteca, empregado);
+                case 7 -> cliente.ConsultarEmprestimoPorCPF(empregado);
+                case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }
         }

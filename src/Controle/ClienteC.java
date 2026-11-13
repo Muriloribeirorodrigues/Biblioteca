@@ -47,8 +47,7 @@ public class ClienteC {
     }
 
     public void listarClientes() {
-        if (vetClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado.");
+        if (SemClientes()) {
             return;
         }
         for (ClienteM cliente : vetClientes) {
@@ -85,8 +84,7 @@ public class ClienteC {
         }
     }
     public void BuscarClientePorCPF(){
-        if (vetClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado.");
+        if (SemClientes()) {
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -98,22 +96,19 @@ public class ClienteC {
                 cliente.PrintCliente();
                 return;
             }
-            else{
-                System.out.println("Cliente não encontrado.");
-                return;
-            }
         }
+        System.out.println("Cliente não encontrado.");
     }
     public void RemoverClientePorCPF(){
-        if (vetClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado.");
+        if (SemClientes()) {
             return;
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o CPF do cliente que deseja remover: ");
         String cpfcliente = sc.nextLine();
+        String cpfFormatado = formatarCPF(cpfcliente);
         for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
+            if(cliente.getCPF().equals(cpfFormatado)){
                 vetClientes.remove(cliente);
                 System.out.println("Cliente removido com sucesso.");
                 return;
@@ -121,8 +116,7 @@ public class ClienteC {
         }
     }
     public void AtualizarDadosCliente(){
-        if (vetClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado.");
+        if (SemClientes()) {
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -153,9 +147,8 @@ public class ClienteC {
             }
         }
     }
-    public void DevolverLivro(BibliotecaC biblioteca){
-        if (vetClientes.isEmpty()){
-            System.out.println("Nenhum cliente cadastrado.");
+    public void DevolverLivro(BibliotecaC biblioteca, EmpregadoC empregado){
+        if (SemClientes()) {
             return;
         }
         Scanner sc = new Scanner(System.in);
@@ -170,11 +163,43 @@ public class ClienteC {
                 for(Livros livro : biblioteca.getVetBiblioteca()){
                     if(livro.getNomeDoLivro().equals(nomelivro)){
                         livro.setQuantidade(livro.getQuantidade()+1);
-
+                        for(int i = 0; i < empregado.vetEmprestimo.size(); i++){
+                            if(empregado.vetEmprestimo.get(i).contains(cliente.getNome()) && empregado.vetEmprestimo.get(i).contains(livro.getNomeDoLivro())){
+                                empregado.vetEmprestimo.remove(i);
+                                System.out.println("Livro devolvido com sucesso.");
+                                return;
+                            }
+                        }
+                        System.out.println("Livro não encontrado nos empréstimos do cliente.");
                     }
                 }
             }
        }
     }
+    public void ConsultarEmprestimoPorCPF(EmpregadoC empregado){
+        if (SemClientes()) {
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o CPF do cliente que deseja consultar os empréstimos: ");
+        String cpfCliente = sc.nextLine();
+        String cpfFormatado = formatarCPF(cpfCliente);
+        int encontrado = 0;
+        for(String emprestimo : empregado.vetEmprestimo) {
+            if (emprestimo.contains(cpfFormatado)) {
+                System.out.println(emprestimo);
+                encontrado++;
+            }
+        }
+        if (encontrado == 0) {
+            System.out.println("Nao existe emprestimo para o CPF informado.");
+        }
+    }
+    private boolean SemClientes(){
+        if (vetClientes.isEmpty()){
+            System.out.println("Sem clintes cadastrados");
+            return true;
+        }
+        return false;
+    }
 }
-
