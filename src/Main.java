@@ -9,6 +9,7 @@ public class Main {
         EmpregadoC empregado = new EmpregadoC();
         ClienteC cliente = new ClienteC();
         EmprestimoC emprestimo = new EmprestimoC();
+        
         while (opcao!= 4){
 
             System.out.println("1-Menu livro");
@@ -123,7 +124,7 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
                 case 4 -> cliente.RemoverClientePorCPF(sc);
                 case 5 -> cliente.AtualizarDadosCliente(sc);
                 case 6 -> cliente.DevolverLivro(biblioteca, empregado, emprestimo, sc);
-                case 7 -> cliente.ConsultarEmprestimoPorCPF(empregado, emprestimo, sc, new ValidadorM());
+                case 7 -> cliente.ConsultarEmprestimoPorCPF(empregado, emprestimo, sc);
                 case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }

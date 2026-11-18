@@ -26,12 +26,6 @@ public class EmpregadoC {
         System.out.println("Telefone: ");
         String telefoneentrada = sc.nextLine();
         String telefone = ValidadorM.formatarTelefone(telefoneentrada);
-        for (EmpregadoM empregado : vetEmpregado){
-            if(empregado.getTelefone().equals(telefone)){
-                System.out.println("Telefone já cadastrado");
-                return;
-            }
-        }
 
         System.out.println("Cpf: ");
         String cpfentrada = sc.nextLine();
