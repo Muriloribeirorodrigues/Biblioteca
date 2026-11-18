@@ -1,5 +1,3 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import Controle.*;
 import java.util.Scanner;
 
@@ -10,6 +8,7 @@ public class Main {
         BibliotecaC biblioteca = new BibliotecaC();
         EmpregadoC empregado = new EmpregadoC();
         ClienteC cliente = new ClienteC();
+        EmprestimoC emprestimo = new EmprestimoC();
         while (opcao!= 4){
 
             System.out.println("1-Menu livro");
@@ -22,8 +21,8 @@ public class Main {
 
             switch (opcao) {
                 case 1 -> menuLivros(biblioteca);
-                case 2 -> menuEmpregado(empregado, biblioteca, cliente);
-                case 3 -> menuCliente(cliente, biblioteca, empregado);
+                case 2 -> menuEmpregado(empregado, biblioteca, cliente, emprestimo);
+                case 3 -> menuCliente(cliente, biblioteca, empregado, emprestimo);
                 case 4 -> System.out.println("Saindo do programa");
                 default -> System.out.println("Opcao invalida");
             }
@@ -50,20 +49,20 @@ public class Main {
             sc.nextLine();
 
             switch (opcao2) {
-                case 1 -> biblioteca.CadastrarLivro();
-                case 2 -> biblioteca.ListarLivros();
-                case 3 -> biblioteca.BuscarLivro();
-                case 4 -> biblioteca.RemoveLivro();
-                case 5 -> biblioteca.AtualizarDadosLivros();
-                case 6 -> biblioteca.AlterarEstoque();
-                case 7 -> biblioteca.ListarLivrosPor();
+                case 1 -> biblioteca.CadastrarLivro(sc);
+                case 2 -> biblioteca.ListarLivro();
+                case 3 -> biblioteca.BuscarLivro(sc);
+                case 4 -> biblioteca.RemoveLivro(sc);
+                case 5 -> biblioteca.AtualizarDadosLivro(sc);
+                case 6 -> biblioteca.AlterarEstoque(sc);
+                case 7 -> biblioteca.ListarLivroPor(sc);
                 case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }
         }
     }
 
-private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, ClienteC cliente){
+private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, ClienteC cliente, EmprestimoC emprestimo){
 
     int opcao2 = 0;
     Scanner sc = new Scanner(System.in);
@@ -84,21 +83,21 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         switch (opcao2){
 
         
-        case 1 -> empregado.CadastrarEmpregado();
+        case 1 -> empregado.CadastrarEmpregado(sc);
         case 2 -> empregado.ListarEmpregado();
-        case 3 -> empregado.BuscarEmpregado();
-        case 4 -> empregado.RemoveEmpregado();
-        case 5 -> empregado.AtualizarDadosEmpregado();
-        case 6 -> empregado.EmprestarLivros(biblioteca, cliente);
-        case 7 -> empregado.ListarEmprestimo();
-        case 8 -> empregado.ConsultarEmprestimoPorCPF();
+        case 3 -> empregado.BuscarEmpregado(sc);
+        case 4 -> empregado.RemoveEmpregado(sc);
+        case 5 -> empregado.AtualizarDadosEmpregado(sc);
+        case 6 -> empregado.EmprestarLivros(biblioteca, cliente, emprestimo, sc);
+        case 7 -> empregado.ListarEmprestimo(emprestimo);
+        case 8 -> empregado.ConsultarEmprestimoPorCPF(emprestimo, sc);
         case 9 -> System.out.println("Voltando ao menu principal...");
         default -> System.out.println("Opcao invalida");
         }
     }
 }
 
-    private static void menuCliente(ClienteC cliente, BibliotecaC biblioteca, EmpregadoC empregado) {
+    private static void menuCliente(ClienteC cliente, BibliotecaC biblioteca, EmpregadoC empregado, EmprestimoC emprestimo) {
 
         int opcao2 = 0;
         Scanner sc = new Scanner(System.in);
@@ -118,16 +117,16 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         sc.nextLine();
 
             switch (opcao2) {
-                case 1 -> cliente.CadastrarCliente();
+                case 1 -> cliente.CadastrarCliente(sc);
                 case 2 -> cliente.listarClientes();
-                case 3 -> cliente.BuscarClientePorCPF();
-                case 4 -> cliente.RemoverClientePorCPF();
-                case 5 -> cliente.AtualizarDadosCliente();
-                case 6 -> cliente.DevolverLivro(biblioteca, empregado);
-                case 7 -> cliente.ConsultarEmprestimoPorCPF(empregado);
+                case 3 -> cliente.BuscarClientePorCPF(sc);
+                case 4 -> cliente.RemoverClientePorCPF(sc);
+                case 5 -> cliente.AtualizarDadosCliente(sc);
+                case 6 -> cliente.DevolverLivro(biblioteca, empregado, emprestimo, sc);
+                case 7 -> cliente.ConsultarEmprestimoPorCPF(empregado, emprestimo, sc, new ValidadorM());
                 case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }
         }
     }
-}
+}   

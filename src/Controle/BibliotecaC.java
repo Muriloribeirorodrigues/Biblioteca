@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotecaC {
-    public ArrayList<Livros> vetBiblioteca;
+    public ArrayList<Livro> vetBiblioteca;
 
-    public ArrayList<Livros> getVetBiblioteca() {
+    public ArrayList<Livro> getVetBiblioteca() {
         return vetBiblioteca;
     }
 
     public BibliotecaC(){
-        vetBiblioteca = new ArrayList<Livros>();
+        vetBiblioteca = new ArrayList<Livro>();
     }
 
-    public void CadastrarLivro(){
-        Scanner sc = new Scanner(System.in);
-
+    public void CadastrarLivro(Scanner sc){
         System.out.println("Nome do Livro: ");
         String NomeDoLivro = sc.nextLine();
 
@@ -29,28 +27,27 @@ public class BibliotecaC {
         System.out.println("Quantidade: ");
         int Quantidade = sc.nextInt();
 
-        Livros novolivro = new Livros(NomeDoLivro, Autor, Genero, Quantidade);
+        Livro novolivro = new Livro(NomeDoLivro, Autor, Genero, Quantidade);
 
         vetBiblioteca.add(novolivro);
 
         System.out.println("Livro cadastrado");
     }
-    public void ListarLivros(){
-        if(SemLivros()){
+    public void ListarLivro(){
+        if(SemLivro()){
             return;
         }
-        for (Livros biblioteca : vetBiblioteca){
+        for (Livro biblioteca : vetBiblioteca){
             biblioteca.PrintBiblioteca();
         }
     }
-    public void BuscarLivro(){
-        if(SemLivros()){
+    public void BuscarLivro(Scanner sc){
+        if(SemLivro()){
             return;
         }
-        Scanner sc = new Scanner(System.in);
         System.out.println("Digite o nome do livro que deseja buscar: ");
         String nomeLivro = sc.nextLine();
-        for (Livros livro : vetBiblioteca) {
+        for (Livro livro : vetBiblioteca) {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
                 livro.PrintBiblioteca();
                 return;
@@ -58,11 +55,10 @@ public class BibliotecaC {
         }
         System.out.println("Livro não encontrado.");
     }   
-    public void RemoveLivro(){
-        if(SemLivros()){
+    public void RemoveLivro(Scanner sc){
+        if(SemLivro()){
             return;
         }
-        Scanner sc = new Scanner(System.in);
         System.out.println("Digite o nome do livro que deseja remover: ");
         String nomeLivro = sc.nextLine();
         for (int i = 0; i < vetBiblioteca.size(); i++) {
@@ -73,14 +69,13 @@ public class BibliotecaC {
             }
         }
     }
-    public void AtualizarDadosLivros(){
-        if(SemLivros()){
+    public void AtualizarDadosLivro(Scanner sc){
+        if(SemLivro()){
             return;
         }
-        Scanner sc = new Scanner(System.in);
         System.out.println("Digite o nome do livro que deseja atualizar: ");
         String nomeLivro = sc.nextLine();
-        for (Livros livro : vetBiblioteca) {
+        for (Livro livro : vetBiblioteca) {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
                 System.out.println("Digite o novo nome do livro: ");
                 String novoNome = sc.nextLine();
@@ -103,31 +98,30 @@ public class BibliotecaC {
             }
         }
     }
-    public void AlterarEstoque(){
-        if(SemLivros()){
+    public void AlterarEstoque(Scanner sc){
+        if(SemLivro()){
             return;
         }
-        Scanner sc = new Scanner(System.in);
         System.out.println("Qual o nome do livro que precisa de alteração de estoque: ");
         String nomeLivro = sc.nextLine();
-        for (Livros livro : vetBiblioteca){
+        for (Livro livro : vetBiblioteca){
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)){
                 int opcao = 0;
                 while (opcao != 3){
                     System.out.println("Qual ação foi executada: ");
-                    System.out.println("1-Aumentar numero de livros no estoque");
-                    System.out.println("2-Diminuir numero de livros no estoque");
+                    System.out.println("1-Aumentar numero de Livro no estoque");
+                    System.out.println("2-Diminuir numero de Livro no estoque");
                     System.out.println("3-Voltar");
                     
                     opcao = sc.nextInt();
                     sc.nextLine();
 
                     switch(opcao){
-                        case 1 -> {System.out.println("Quanto livros deseja adicionar? ");
+                        case 1 -> {System.out.println("Quanto Livro deseja adicionar? ");
                             int quantidadeAdicional = sc.nextInt();
                             livro.setQuantidade(livro.getQuantidade() + quantidadeAdicional);
                         }
-                        case 2 -> {System.out.println("Quantos livros deseja retirar? ");
+                        case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
                             int quantidadeAdicional = sc.nextInt();
                             livro.setQuantidade(livro.getQuantidade() - quantidadeAdicional);
                         }
@@ -138,19 +132,18 @@ public class BibliotecaC {
             }
         }
     }
-    public void ListarLivrosPorGenero(){
-        if(SemLivros()){
+    public void ListarLivroPorGenero(Scanner sc){
+        if(SemLivro()){
             return;
         }
         System.out.println("Generos disponiveis:");
-        for(Livros livro : vetBiblioteca){
+        for(Livro livro : vetBiblioteca){
             System.out.println("- " + livro.getGenero());
         }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digite o gênero que deseja listar os livros: ");
+        System.out.println("Digite o gênero que deseja listar os Livro: ");
         String genero = sc.nextLine();
         int encontrado = 0;
-        for (Livros livro : vetBiblioteca){
+        for (Livro livro : vetBiblioteca){
             if(livro.getGenero().equalsIgnoreCase(genero)){
                 livro.PrintBiblioteca();
                 encontrado++;
@@ -160,19 +153,18 @@ public class BibliotecaC {
             System.out.println("Nao existe livro cadastrado com esse genero");
         }
     }
-    public void ListarLivrosPorAutor(){
-        if(SemLivros()){
+    public void ListarLivroPorAutor(Scanner sc){
+        if(SemLivro()){
             return;
         }
         System.out.println("Autores disponiveis: ");
-        for(Livros livro : vetBiblioteca){
+        for(Livro livro : vetBiblioteca){
             System.out.println("- " + livro.getAutor());
         }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digite o autor que deseja listar os livros: ");
+        System.out.println("Digite o autor que deseja listar os Livro: ");
         String autor = sc.nextLine();
         int encontrado = 0;
-        for (Livros livro : vetBiblioteca){
+        for (Livro livro : vetBiblioteca){
             if(livro.getAutor().equalsIgnoreCase(autor)){
                 livro.PrintBiblioteca();
                 encontrado++;
@@ -182,29 +174,28 @@ public class BibliotecaC {
             System.out.println("Nao existe livro cadastrado com esse genero");
         }
     }
-    public void ListarLivrosPor(){
-        if(SemLivros()){
+    public void ListarLivroPor(Scanner sc){
+        if(SemLivro()){
             return;
         }
-        Scanner sc = new Scanner(System.in);
         int opcao = 0;
         while(opcao!=3){
-            System.out.println("1-Listar livros por genero");
-            System.out.println("2-Listar livros por autor");
+            System.out.println("1-Listar Livro por genero");
+            System.out.println("2-Listar Livro por autor");
             System.out.println("3-Voltar");
             opcao = sc.nextInt();
             sc.nextLine();
             switch(opcao){
-                case 1 -> ListarLivrosPorGenero();
-                case 2 -> ListarLivrosPorAutor();
+                case 1 -> ListarLivroPorGenero(sc);
+                case 2 -> ListarLivroPorAutor(sc);
                 case 3 -> System.out.println("Voltando ao menu principal");
                 default -> System.out.println("Opcao invalida");
             }
         }
     }
-    private boolean SemLivros(){
+    private boolean SemLivro(){
         if (vetBiblioteca.isEmpty()){
-            System.out.println("Sem livros no estoque");
+            System.out.println("Sem Livro no estoque");
             return true;
         }
         return false;

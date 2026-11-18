@@ -1,12 +1,12 @@
 package BibliotecaM;
 
-public class Livros {
+public class Livro {
      private String NomeDoLivro;
      private String Autor;
      private String Genero;
      private int Quantidade;
 
-     public Livros(String nomedolivro, String autor, String genero, int quantidade){
+     public Livro(String nomedolivro, String autor, String genero, int quantidade){
           this.NomeDoLivro = nomedolivro;
           this.Autor = autor;
           this.Genero = genero;
@@ -42,6 +42,9 @@ public class Livros {
      }
 
      public void setQuantidade(int quantidade){
+          if(quantidade < 0){
+               throw new IllegalArgumentException("Quantidade nao pode ser negativa");
+          }
           Quantidade = quantidade;
      }
 
