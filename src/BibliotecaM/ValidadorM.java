@@ -78,11 +78,11 @@ public final class ValidadorM {
         while (true) { 
             try {
                 return Integer.parseInt(sc.nextLine().trim());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Digite um numero inteiro");
             }
         }
     }
 
-    
+
 }
