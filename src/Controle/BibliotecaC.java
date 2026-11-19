@@ -90,7 +90,7 @@ public class BibliotecaC {
                 livro.SetGenero(novoGenero);
 
                 System.out.println("Digite a nova quantidade do livro: ");
-                int novaQuantidade = sc.nextInt();
+                int novaQuantidade = ValidadorM.lerInt(sc);
                 livro.setQuantidade(novaQuantidade);
 
                 System.out.println("Dados do livro atualizados com sucesso.");
@@ -113,16 +113,15 @@ public class BibliotecaC {
                     System.out.println("2-Diminuir numero de Livro no estoque");
                     System.out.println("3-Voltar");
                     
-                    opcao = sc.nextInt();
-                    sc.nextLine();
+                    opcao = ValidadorM.lerInt(sc);
 
                     switch(opcao){
                         case 1 -> {System.out.println("Quanto Livro deseja adicionar? ");
-                            int quantidadeAdicional = sc.nextInt();
+                            int quantidadeAdicional = ValidadorM.lerInt(sc);
                             livro.setQuantidade(livro.getQuantidade() + quantidadeAdicional);
                         }
                         case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
-                            int quantidadeAdicional = sc.nextInt();
+                            int quantidadeAdicional = ValidadorM.lerInt(sc) ;
                             livro.setQuantidade(livro.getQuantidade() - quantidadeAdicional);
                         }
                         case 3 -> System.out.println("Voltar");
@@ -183,8 +182,7 @@ public class BibliotecaC {
             System.out.println("1-Listar Livro por genero");
             System.out.println("2-Listar Livro por autor");
             System.out.println("3-Voltar");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = ValidadorM.lerInt(sc);
             switch(opcao){
                 case 1 -> ListarLivroPorGenero(sc);
                 case 2 -> ListarLivroPorAutor(sc);
