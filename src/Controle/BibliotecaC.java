@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotecaC {
-    public ArrayList<Livro> vetBiblioteca;
+    private ArrayList<Livro> vetBiblioteca;
 
     public ArrayList<Livro> getVetBiblioteca() {
         return vetBiblioteca;
@@ -25,7 +25,7 @@ public class BibliotecaC {
         String Genero = sc.nextLine();
 
         System.out.println("Quantidade: ");
-        int Quantidade = sc.nextInt();
+        int Quantidade = ValidadorM.lerInt(sc);
 
         Livro novolivro = new Livro(NomeDoLivro, Autor, Genero, Quantidade);
 

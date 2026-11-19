@@ -1,3 +1,4 @@
+import BibliotecaM.ValidadorM;
 import Controle.*;
 import java.util.Scanner;
 
@@ -17,13 +18,12 @@ public class Main {
             System.out.println("3-Menu cliente");
             System.out.println("4-Sair");
 
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = ValidadorM.lerInt(sc);
 
             switch (opcao) {
-                case 1 -> menuLivros(biblioteca);
-                case 2 -> menuEmpregado(empregado, biblioteca, cliente, emprestimo);
-                case 3 -> menuCliente(cliente, biblioteca, empregado, emprestimo);
+                case 1 -> executar(() -> menuLivros(sc, biblioteca));
+                case 2 -> executar(() -> menuEmpregado(sc, empregado, biblioteca, cliente, emprestimo));
+                case 3 -> executar (() -> menuCliente(sc, cliente, biblioteca, empregado, emprestimo));
                 case 4 -> System.out.println("Saindo do programa");
                 default -> System.out.println("Opcao invalida");
             }
@@ -31,8 +31,7 @@ public class Main {
 
         sc.close();
     }
-    private static void menuLivros(BibliotecaC biblioteca){
-        Scanner sc = new Scanner(System.in);
+    private static void menuLivros(Scanner sc, BibliotecaC biblioteca){
 
         int opcao2 = 0;
 
@@ -46,27 +45,25 @@ public class Main {
             System.out.println("7-Listar livros por genero ou autor");
             System.out.println("8-Voltar");
 
-            opcao2 = sc.nextInt();
-            sc.nextLine();
+            opcao2 = ValidadorM.lerInt(sc);
 
             switch (opcao2) {
-                case 1 -> biblioteca.CadastrarLivro(sc);
-                case 2 -> biblioteca.ListarLivro();
-                case 3 -> biblioteca.BuscarLivro(sc);
-                case 4 -> biblioteca.RemoveLivro(sc);
-                case 5 -> biblioteca.AtualizarDadosLivro(sc);
-                case 6 -> biblioteca.AlterarEstoque(sc);
-                case 7 -> biblioteca.ListarLivroPor(sc);
+                case 1 -> executar(() -> biblioteca.CadastrarLivro(sc));
+                case 2 -> executar(() -> biblioteca.ListarLivro());
+                case 3 -> executar(() -> biblioteca.BuscarLivro(sc));
+                case 4 -> executar(() -> biblioteca.RemoveLivro(sc));
+                case 5 -> executar(() -> biblioteca.AtualizarDadosLivro(sc));
+                case 6 -> executar(() -> biblioteca.AlterarEstoque(sc));
+                case 7 -> executar(() -> biblioteca.ListarLivroPor(sc));
                 case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }
         }
     }
 
-private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, ClienteC cliente, EmprestimoC emprestimo){
+private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC biblioteca, ClienteC cliente, EmprestimoC emprestimo){
 
     int opcao2 = 0;
-    Scanner sc = new Scanner(System.in);
 
     while (opcao2 != 9) {
 
@@ -79,30 +76,29 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         System.out.println("7-Listar empréstimos");
         System.out.println("8-Consultar empréstimos por CPF");
         System.out.println("9-Voltar");
-        opcao2 = sc.nextInt();
-        sc.nextLine();
+        
+        opcao2 = ValidadorM.lerInt(sc);
+        
         switch (opcao2){
 
         
-        case 1 -> empregado.CadastrarEmpregado(sc);
-        case 2 -> empregado.ListarEmpregado();
-        case 3 -> empregado.BuscarEmpregado(sc);
-        case 4 -> empregado.RemoveEmpregado(sc);
-        case 5 -> empregado.AtualizarDadosEmpregado(sc);
-        case 6 -> empregado.EmprestarLivros(biblioteca, cliente, emprestimo, sc);
-        case 7 -> empregado.ListarEmprestimo(emprestimo);
-        case 8 -> empregado.ConsultarEmprestimoPorCPF(emprestimo, sc);
+        case 1 -> executar(() -> empregado.CadastrarEmpregado(sc));
+        case 2 -> executar(() -> empregado.ListarEmpregado());
+        case 3 -> executar(() -> empregado.BuscarEmpregado(sc));
+        case 4 -> executar(() -> empregado.RemoveEmpregado(sc));
+        case 5 -> executar(() -> empregado.AtualizarDadosEmpregado(sc));
+        case 6 -> executar(() -> empregado.EmprestarLivros(biblioteca, cliente, emprestimo, sc));
+        case 7 -> executar(() -> empregado.ListarEmprestimo(emprestimo));
+        case 8 -> executar(() -> empregado.ConsultarEmprestimoPorCPF(emprestimo, sc));
         case 9 -> System.out.println("Voltando ao menu principal...");
         default -> System.out.println("Opcao invalida");
         }
     }
 }
 
-    private static void menuCliente(ClienteC cliente, BibliotecaC biblioteca, EmpregadoC empregado, EmprestimoC emprestimo) {
+    private static void menuCliente(Scanner sc, ClienteC cliente, BibliotecaC biblioteca, EmpregadoC empregado, EmprestimoC emprestimo) {
 
         int opcao2 = 0;
-        Scanner sc = new Scanner(System.in);
-
         while (opcao2 != 8) {
 
         System.out.println("1-Cadastrar cliente");
@@ -114,20 +110,28 @@ private static void menuEmpregado(EmpregadoC empregado, BibliotecaC biblioteca, 
         System.out.println("7-Consultar empréstimos por CPF");
         System.out.println("8-Voltar");
             
-        opcao2 = sc.nextInt();
-        sc.nextLine();
+        opcao2 = ValidadorM.lerInt(sc);
 
             switch (opcao2) {
-                case 1 -> cliente.CadastrarCliente(sc);
-                case 2 -> cliente.listarClientes();
-                case 3 -> cliente.BuscarClientePorCPF(sc);
-                case 4 -> cliente.RemoverClientePorCPF(sc);
-                case 5 -> cliente.AtualizarDadosCliente(sc);
-                case 6 -> cliente.DevolverLivro(biblioteca, empregado, emprestimo, sc);
-                case 7 -> cliente.ConsultarEmprestimoPorCPF(empregado, emprestimo, sc);
+                case 1 -> executar(() -> cliente.CadastrarCliente(sc));
+                case 2 -> executar(() -> cliente.listarClientes());
+                case 3 -> executar(() -> cliente.BuscarClientePorCPF(sc));
+                case 4 -> executar(() -> cliente.RemoverClientePorCPF(sc));
+                case 5 -> executar(() -> cliente.AtualizarDadosCliente(sc));
+                case 6 -> executar(() -> cliente.DevolverLivro(biblioteca, empregado, emprestimo, sc));
+                case 7 -> executar(() -> cliente.ConsultarEmprestimoPorCPF(empregado, emprestimo, sc));
                 case 8 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida");
             }
         }
     }
+
+    private static void executar(Runnable acao) {
+        try {
+            acao.run();
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
 }   

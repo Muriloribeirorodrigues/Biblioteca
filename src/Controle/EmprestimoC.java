@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EmprestimoC {
-    public ArrayList<EmprestimoM> vetEmprestimo;
+    private ArrayList<EmprestimoM> vetEmprestimo;
+
+    public ArrayList<EmprestimoM> getVetEmprestimo(){
+        return vetEmprestimo;
+    }
 
     public EmprestimoC() {
         vetEmprestimo = new ArrayList<EmprestimoM>();

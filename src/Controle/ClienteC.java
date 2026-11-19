@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 public class ClienteC {
-    public ArrayList<ClienteM> vetClientes;
+    private ArrayList<ClienteM> vetClientes;
 
     public ArrayList<ClienteM> getVetClientes() {
         return vetClientes;
@@ -24,13 +24,9 @@ public class ClienteC {
         System.out.println("Nome: ");
         String NomeCompleto = sc.nextLine();
 
-        System.out.println("Telefone: ");
-        String telefoneentrada = sc.nextLine();
-        String telefone = ValidadorM.formatarTelefone(telefoneentrada);
+        String telefone = ValidadorM.lerTelefone(sc, "Telefone");
 
-        System.out.println("Cpf: ");
-        String cpfentrada = sc.nextLine();
-        String CPF = ValidadorM.formatarCPF(cpfentrada);
+        String CPF = ValidadorM.lerCPF(sc, "CPF: ");
         for (ClienteM cliente : vetClientes){
             if(cliente.getCPF().equals(CPF)){
                 System.out.println("CPF já cadastrado");
@@ -38,12 +34,9 @@ public class ClienteC {
             }
         }
 
-        System.out.println("DataNascimento :");
-        String nascimentoentrada = sc.nextLine();
-        String nascimento = ValidadorM.formatarData(nascimentoentrada);
+        String nascimento = ValidadorM.lerData(sc, "Data de nascimento: ddmmaaaa");
 
-        System.out.println("Sexo :");
-        char sexo = sc.next().charAt(0);
+        char sexo = ValidadorM.lerSexo(sc, "Digite M (Masculino) ou F (Feminino)");
 
         ClienteM NovoCliente = new ClienteM(NomeCompleto, telefone, CPF, nascimento, sexo);
 
@@ -76,6 +69,7 @@ public class ClienteC {
         }
         System.out.println("Cliente não encontrado.");
     }
+
     public void RemoverClientePorCPF(Scanner sc){
         if (SemClientes()) {
             return;
@@ -83,20 +77,22 @@ public class ClienteC {
         System.out.println("Digite o CPF do cliente que deseja remover: ");
         String cpfcliente = sc.nextLine();
         String cpfFormatado = ValidadorM.formatarCPF(cpfcliente);
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfFormatado)){
-                vetClientes.remove(cliente);
-                System.out.println("Cliente removido com sucesso.");
+        for (int i = 0; i < vetClientes.size(); i++) {
+            if (vetClientes.get(i).getCPF().equalsIgnoreCase(cpfFormatado)) {
+                vetClientes.remove(i);
+                System.out.println("Cliente removido com sucesso!");
                 return;
             }
         }
+        System.out.println("Cliente nao encontrado");
     }
+
     public void AtualizarDadosCliente(Scanner sc){
         if (SemClientes()) {
             return;
         }
         System.out.println("Digite o CPF do cliente que deseja atualizar: ");
-        String cpfcliente = sc.nextLine();
+        String cpfcliente = ValidadorM.formatarCPF(sc.nextLine());
         for(ClienteM cliente : vetClientes){
             if(cliente.getCPF().equals(cpfcliente)){
                 System.out.println("Digite o novo nome do cliente: ");
@@ -121,12 +117,13 @@ public class ClienteC {
                 return;
             }
         }
+        System.out.println("Cliente nao encontrado");
     }
     public void DevolverLivro(BibliotecaC biblioteca, EmpregadoC empregado, EmprestimoC emprestimos, Scanner sc){
         if (SemClientes()) {
             return;
         }
-        if(emprestimos.vetEmprestimo.isEmpty()){
+        if(emprestimos.getVetEmprestimo().isEmpty()){
             System.out.println("Não ha emprestimos registrados");
             return;
         }
@@ -134,8 +131,8 @@ public class ClienteC {
         String cpfcliente = sc.nextLine();
         String cpfFormatado = ValidadorM.formatarCPF(cpfcliente);
 
-        for(int i = 0; i < emprestimos.vetEmprestimo.size();i++){
-            EmprestimoM emprestimo = emprestimos.vetEmprestimo.get(i);
+        for(int i = 0; i < emprestimos.getVetEmprestimo().size();i++){
+            EmprestimoM emprestimo = emprestimos.getVetEmprestimo().get(i);
             if(emprestimo.getCliente().getCPF().equals(cpfFormatado)){
                 System.out.println("Digite o nome do livro que deseja devolver: ");
                 String nomelivro = sc.nextLine();
@@ -146,12 +143,12 @@ public class ClienteC {
                         System.out.println("Livro devolvido com atraso de " + diasAtraso + " dias");
                     }
                     else{
-                        System.out.println("Livro devolvido dentro do prazo)");
+                        System.out.println("Livro devolvido dentro do prazo");
                     }
-                    for(Livro livro : biblioteca.vetBiblioteca){
+                    for(Livro livro : biblioteca.getVetBiblioteca()){
                         if(livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                             livro.setQuantidade(livro.getQuantidade() + 1);
-                            emprestimos.vetEmprestimo.remove(i);
+                            emprestimos.getVetEmprestimo().remove(i);
                             System.out.println("Livro devolvido com sucesso.");
                             return;
                         }
@@ -165,7 +162,7 @@ public class ClienteC {
         if (SemClientes()) {
             return;
         }
-        if(emprestimos.vetEmprestimo.isEmpty()){
+        if(emprestimos.getVetEmprestimo().isEmpty()){
             System.out.println("Não ha emprestimos registrados");
             return;
         }
@@ -173,7 +170,7 @@ public class ClienteC {
         String cpfCliente = sc.nextLine();
         String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
         int encontrado = 0;
-        for(EmprestimoM emprestimo : emprestimos.vetEmprestimo) {
+        for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
             if (emprestimo.getCliente().getCPF().equals(cpfFormatado)) {
                 System.out.println(emprestimo);
                 encontrado++;
