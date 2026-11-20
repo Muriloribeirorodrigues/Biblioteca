@@ -74,11 +74,9 @@ public class ClienteC {
         if (SemClientes()) {
             return;
         }
-        System.out.println("Digite o CPF do cliente que deseja remover: ");
-        String cpfcliente = sc.nextLine();
-        String cpfFormatado = ValidadorM.formatarCPF(cpfcliente);
+        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do cliente que deseja remover: ");
         for (int i = 0; i < vetClientes.size(); i++) {
-            if (vetClientes.get(i).getCPF().equalsIgnoreCase(cpfFormatado)) {
+            if (vetClientes.get(i).getCPF().equalsIgnoreCase(cpf)) {
                 vetClientes.remove(i);
                 System.out.println("Cliente removido com sucesso!");
                 return;
@@ -99,18 +97,13 @@ public class ClienteC {
                 String novoNome = sc.nextLine();
                 cliente.setNome(novoNome);
 
-                System.out.println("Digite o novo telefone do cliente: ");
-                String novoTelefone = sc.nextLine();
-                String telefoneFormatado = ValidadorM.formatarTelefone(novoTelefone);
-                cliente.setTelefone(telefoneFormatado);
+                String novoTelefone = ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: ");
+                cliente.setTelefone(novoTelefone);
 
-                System.out.println("Digite a nova data de nascimento do cliente (ddmmaaaa): ");
-                String novaDataNascimento = sc.nextLine();
-                String dataFormatada = ValidadorM.formatarData(novaDataNascimento);
-                cliente.setNascimento(dataFormatada);
+                String novaDataNascimento = ValidadorM.lerData(sc, "Digite a nova data de nascimento do cliente: ");
+                cliente.setNascimento(novaDataNascimento);
 
-                System.out.println("Digite o novo sexo do cliente (M/F): ");
-                char novoSexo = sc.next().charAt(0);
+                char novoSexo = ValidadorM.lerSexo(sc, "Digite o novo sexo do cliente M/F: ");
                 cliente.setSexo(novoSexo);
 
                 System.out.println("Dados do cliente atualizados com sucesso.");
@@ -182,7 +175,7 @@ public class ClienteC {
     }
     private boolean SemClientes(){
         if (vetClientes.isEmpty()){
-            System.out.println("Sem clintes cadastrados");
+            System.out.println("Sem clientes cadastrados");
             return true;
         }
         return false;

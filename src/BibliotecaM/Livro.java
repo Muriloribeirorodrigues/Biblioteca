@@ -7,6 +7,9 @@ public class Livro {
      private int Quantidade;
 
      public Livro(String nomedolivro, String autor, String genero, int quantidade){
+          if(quantidade < 0){
+               throw new IllegalArgumentException("Estoque insuficiente");
+          }
           this.NomeDoLivro = nomedolivro;
           this.Autor = autor;
           this.Genero = genero;
@@ -43,7 +46,7 @@ public class Livro {
 
      public void setQuantidade(int quantidade){
           if(quantidade < 0){
-               throw new IllegalArgumentException("Quantidade nao pode ser negativa");
+               throw new IllegalArgumentException("Estoque insuficiente");
           }
           Quantidade = quantidade;
      }

@@ -73,10 +73,10 @@ public class EmpregadoC {
         if(SemEmpregado()){
             return;
         }
-        System.out.println("Digite o nome do empregado que deseja remover: ");
-        String nomeEmpregado = sc.nextLine();
+
+        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja remover: ");
         for (int i = 0; i < vetEmpregado.size(); i++) {
-            if (vetEmpregado.get(i).getNome().equalsIgnoreCase(nomeEmpregado)) {
+            if (vetEmpregado.get(i).getCPF().equalsIgnoreCase(cpf)) {
                 vetEmpregado.remove(i);
                 System.out.println("Empregado removido com sucesso!");
                 return;
@@ -88,30 +88,26 @@ public class EmpregadoC {
         if(SemEmpregado()){
             return;
         }
-        System.out.println("Digite o nome do empregado que deseja atualizar: ");
+        System.out.println("Digite o cpf do empregado que deseja atualizar: ");
         String CPF = ValidadorM.formatarCPF(sc.nextLine());
         for (EmpregadoM empregado : vetEmpregado) {
             if (empregado.getCPF().equalsIgnoreCase(CPF)) {
                 System.out.println("Digite o novo nome do empregado: ");
                 String novoNome = sc.nextLine();
                 empregado.setNome(novoNome);
-
-                System.out.println("Digite o novo telefone do empregado: ");
-                String telefoneentrada = sc.nextLine();
-                String novoTelefone = ValidadorM.formatarTelefone(telefoneentrada);
+                
+                String novoTelefone = ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: ");
                 empregado.setTelefone(novoTelefone);
 
-                System.out.println("Digite a nova data de nascimento do empregado: ");
-                String nascimentoentrada = sc.nextLine();
-                String novaDataNascimento = ValidadorM.formatarData(nascimentoentrada);
+                String novaDataNascimento = ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: ");
                 empregado.setNascimento(novaDataNascimento);
 
                 System.out.println("Digite o novo cargo do empregado: ");
                 String novoCargo = sc.nextLine();
                 empregado.setCargo(novoCargo);
 
-                System.out.println("Digite o novo sexo do empregado: ");
-                char novoSexo = sc.next().charAt(0);
+                
+                char novoSexo = ValidadorM.lerSexo(sc, "Digite o novo sexo do empregado M/F: ");
                 empregado.setSexo(novoSexo);
 
                 System.out.println("Dados atualizados com sucesso!");
@@ -164,6 +160,7 @@ public class EmpregadoC {
                 return;
             }
         }
+        System.out.println("Empregado não encontrado.");
     }
     public void ListarEmprestimo(EmprestimoC emprestimos){
         if (SemEmprestimo(emprestimos)){

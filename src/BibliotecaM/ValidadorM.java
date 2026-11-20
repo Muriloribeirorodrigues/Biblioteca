@@ -70,7 +70,7 @@ public final class ValidadorM {
             if(texto.equals("M") || texto.equals("F")){
                 return texto.charAt(0);
             }
-            System.out.println("Digit M ou F");
+            System.out.println("Digite M ou F");
         }
     }
 
