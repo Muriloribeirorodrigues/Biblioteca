@@ -121,8 +121,13 @@ public class BibliotecaC {
                             livro.setQuantidade(livro.getQuantidade() + quantidadeAdicional);
                         }
                         case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
-                            int quantidadeAdicional = ValidadorM.lerInt(sc) ;
-                            livro.setQuantidade(livro.getQuantidade() - quantidadeAdicional);
+                            int quantidadeRetirada = ValidadorM.lerInt(sc) ;
+                            if (quantidadeRetirada > livro.getQuantidade()){
+                                System.out.println("Estoque insuficiente. Só há" + livro.getQuantidade() + "unidade no estoque");
+                            }
+                            else{
+                                livro.setQuantidade(livro.getQuantidade() - quantidadeRetirada);
+                            }
                         }
                         case 3 -> System.out.println("Voltar");
                         default -> System.out.println("Opcao invalida");

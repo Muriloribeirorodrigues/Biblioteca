@@ -59,10 +59,9 @@ public class EmpregadoC {
         if(SemEmpregado()){
             return;
         }
-        System.out.println("Digite o nome do empregado que deseja buscar: ");
-        String nomeEmpregado = sc.nextLine();
+        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja buscar: ");
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getNome().equalsIgnoreCase(nomeEmpregado)) {
+            if (empregado.getNome().equalsIgnoreCase(cpf)) {
                 empregado.PrintEmpregado();
                 return;
             }
@@ -121,10 +120,9 @@ public class EmpregadoC {
             System.out.println("Sem empregados, livros ou clientes cadastrados");
             return;
         }
-        System.out.println("Digite o nome do empregado que deseja realizar o empréstimo: ");
-        String nomeEmpregado = sc.nextLine();
+        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja realizar o empréstimo: ");
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getNome().equalsIgnoreCase(nomeEmpregado)) {
+            if (empregado.getCPF().equalsIgnoreCase(cpf)) {
                 System.out.println("Livros disponiveis para emprestimo: ");
                 for (Livro livro : biblioteca.getVetBiblioteca()) {
                     System.out.println("- " + livro.getNomeDoLivro());
