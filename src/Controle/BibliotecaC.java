@@ -15,14 +15,11 @@ public class BibliotecaC {
     }
 
     public void CadastrarLivro(Scanner sc){
-        System.out.println("Nome do Livro: ");
-        String NomeDoLivro = sc.nextLine();
+        String NomeDoLivro = ValidadorM.lerTextoObrigatorio(sc, "Nome do Livro: ");
 
-        System.out.println("Autor: ");
-        String Autor = sc.nextLine();
+        String Autor = ValidadorM.lerTextoObrigatorio(sc, "Autor");
 
-        System.out.println("Genero: ");
-        String Genero = sc.nextLine();
+        String Genero = ValidadorM.lerTextoObrigatorio(sc, "Genero");
 
         System.out.println("Quantidade: ");
         int Quantidade = ValidadorM.lerInt(sc);
@@ -68,6 +65,7 @@ public class BibliotecaC {
                 return;
             }
         }
+        System.out.println("Nenhum livro cadastrado com esse nome");
     }
     public void AtualizarDadosLivro(Scanner sc){
         if(SemLivro()){

@@ -21,8 +21,7 @@ public class ClienteC {
 
     public void CadastrarCliente(Scanner sc){
 
-        System.out.println("Nome: ");
-        String NomeCompleto = sc.nextLine();
+        String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
 
         String telefone = ValidadorM.lerTelefone(sc, "Telefone");
 
@@ -89,21 +88,19 @@ public class ClienteC {
         if (SemClientes()) {
             return;
         }
-        System.out.println("Digite o CPF do cliente que deseja atualizar: ");
-        String cpfcliente = ValidadorM.formatarCPF(sc.nextLine());
+        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
         for(ClienteM cliente : vetClientes){
             if(cliente.getCPF().equals(cpfcliente)){
-                System.out.println("Digite o novo nome do cliente: ");
-                String novoNome = sc.nextLine();
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do cliente: ");
                 cliente.setNome(novoNome);
 
-                String novoTelefone = ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: ");
+                String novoTelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do cliente: ");
                 cliente.setTelefone(novoTelefone);
 
-                String novaDataNascimento = ValidadorM.lerData(sc, "Digite a nova data de nascimento do cliente: ");
+                String novaDataNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do cliente: ");
                 cliente.setNascimento(novaDataNascimento);
 
-                char novoSexo = ValidadorM.lerSexo(sc, "Digite o novo sexo do cliente M/F: ");
+                char novoSexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente M/F: ");
                 cliente.setSexo(novoSexo);
 
                 System.out.println("Dados do cliente atualizados com sucesso.");
@@ -120,33 +117,22 @@ public class ClienteC {
             System.out.println("Não ha emprestimos registrados");
             return;
         }
-        System.out.println("Digite o CPF do cliente que deseja devolver o livro: ");
-        String cpfcliente = sc.nextLine();
-        String cpfFormatado = ValidadorM.formatarCPF(cpfcliente);
-
-        for(int i = 0; i < emprestimos.getVetEmprestimo().size();i++){
-            EmprestimoM emprestimo = emprestimos.getVetEmprestimo().get(i);
-            if(emprestimo.getCliente().getCPF().equals(cpfFormatado)){
-                System.out.println("Digite o nome do livro que deseja devolver: ");
+        String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja devolver o livro: ");
+        System.out.println("Digite o nome do livro que deseja devolver: ");
                 String nomelivro = sc.nextLine();
-                if(emprestimo.getLivro().getNomeDoLivro().equalsIgnoreCase(nomelivro)){
-                    LocalDateTime dataDevolucaoReal = LocalDateTime.now();
-                    if(emprestimo.verificarAtraso(dataDevolucaoReal)){
-                        long diasAtraso = emprestimo.calcularDiasAtraso(dataDevolucaoReal);
-                        System.out.println("Livro devolvido com atraso de " + diasAtraso + " dias");
-                    }
-                    else{
-                        System.out.println("Livro devolvido dentro do prazo");
-                    }
-                    for(Livro livro : biblioteca.getVetBiblioteca()){
-                        if(livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
-                            livro.setQuantidade(livro.getQuantidade() + 1);
-                            emprestimos.getVetEmprestimo().remove(i);
-                            System.out.println("Livro devolvido com sucesso.");
-                            return;
-                        }
-                    }
+        for(EmprestimoM emprestimo :  emprestimos.getVetEmprestimo()){
+            if(emprestimo.isAtivo() && emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.getLivro().getNomeDoLivro().equalsIgnoreCase(nomelivro)){
+                emprestimo.devolver();
+                Livro livro = emprestimo.getLivro();
+                livro.setQuantidade(livro.getQuantidade()+1);
+                if(emprestimo.estaAtrasado()){
+                    System.out.println("Livro devolvido com atraso de " + emprestimo.diasDeAtraso() + " dias");
                 }
+                else{
+                    System.out.println("Livro devolvido dentro do prazo");
+                }
+                System.out.println("Livro devolvido com sucesso.");
+                return;
             }
         }
         System.out.println("Emprestimo nao encontrado para esse cliente");

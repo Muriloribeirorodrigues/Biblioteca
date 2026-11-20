@@ -84,5 +84,14 @@ public final class ValidadorM {
         }
     }
 
-
+    public static String lerTextoObrigatorio(Scanner sc, String mensagem){
+        while(true){
+            System.out.println(mensagem);
+            String texto = sc.nextLine().trim();
+            if (!texto.isEmpty()){
+                return texto;
+            }
+            System.out.println("Este campo nao pode ficar vazio");
+        }
+    }
 }

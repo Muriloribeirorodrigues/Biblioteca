@@ -20,8 +20,7 @@ public class EmpregadoC {
 
     public void CadastrarEmpregado(Scanner sc){
 
-        System.out.println("Nome: ");
-        String NomeCompleto = sc.nextLine();
+        String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
 
         String telefone = ValidadorM.lerTelefone(sc, "Telefone");
 
@@ -35,8 +34,7 @@ public class EmpregadoC {
 
         String nascimento = ValidadorM.lerData(sc, "Data de nascimento");
 
-        System.out.println("Cargo :");
-        String cargo = sc.nextLine();
+        String cargo = ValidadorM.lerTextoObrigatorio(sc, "Cargo: ");
 
         char sexo = ValidadorM.lerSexo(sc, "Digite M (Masculino) ou F (Feminino)");
 
@@ -87,12 +85,10 @@ public class EmpregadoC {
         if(SemEmpregado()){
             return;
         }
-        System.out.println("Digite o cpf do empregado que deseja atualizar: ");
-        String CPF = ValidadorM.formatarCPF(sc.nextLine());
+        String CPF = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja atualizar: ");
         for (EmpregadoM empregado : vetEmpregado) {
             if (empregado.getCPF().equalsIgnoreCase(CPF)) {
-                System.out.println("Digite o novo nome do empregado: ");
-                String novoNome = sc.nextLine();
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: ");
                 empregado.setNome(novoNome);
                 
                 String novoTelefone = ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: ");
@@ -101,8 +97,7 @@ public class EmpregadoC {
                 String novaDataNascimento = ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: ");
                 empregado.setNascimento(novaDataNascimento);
 
-                System.out.println("Digite o novo cargo do empregado: ");
-                String novoCargo = sc.nextLine();
+                String novoCargo = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do cliente: ");
                 empregado.setCargo(novoCargo);
 
                 
@@ -141,7 +136,7 @@ public class EmpregadoC {
 
                                         LocalDateTime dataEmprestimo = LocalDateTime.now();
                                         emprestimo.getVetEmprestimo().add(new EmprestimoM(
-                                            cliente, empregado, livro, dataEmprestimo, dataEmprestimo.plusDays(14)));
+                                            cliente, empregado, livro, dataEmprestimo, dataEmprestimo.plusDays(14), null));
                                     System.out.println("Empréstimo realizado com sucesso!");
                                     return;
                                 } else {
@@ -164,9 +159,10 @@ public class EmpregadoC {
         if (SemEmprestimo(emprestimos)){
             return;
         }
-        System.out.println("Empréstimos realizados:");
         for (EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
-            System.out.println(emprestimo);
+            if (emprestimo.isAtivo()) {
+                System.out.println(emprestimo);
+            }
         }
     }
     public void ConsultarEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
