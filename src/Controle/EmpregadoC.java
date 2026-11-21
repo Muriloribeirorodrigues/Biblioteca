@@ -59,7 +59,7 @@ public class EmpregadoC {
         }
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja buscar: ");
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getCPF().equalsIgnoreCase(cpf)) {
+            if (empregado.getCPF().equals(cpf)) {
                 empregado.PrintEmpregado();
                 return;
             }
@@ -86,7 +86,7 @@ public class EmpregadoC {
             return;
         }
         int opcao = 0;
-        while (opcao != 6){
+        while (opcao != 7){
             System.out.println("1 - Atualizar nome do empregado");
             System.out.println("2 - Atualizar telefone do empregado");
             System.out.println("3 - Atualizar data de nascimento do empregado");
@@ -94,6 +94,7 @@ public class EmpregadoC {
             System.out.println("5 - Atualizar cargo do empregado");
             System.out.println("6 - Alterar tudo");
             System.out.println("7 - Voltar");
+            opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
                 case 1 -> AlterarNome(sc);
@@ -195,89 +196,77 @@ public class EmpregadoC {
         return false;
     }
     public void AlterarNome(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        for(EmpregadoM empragado : vetEmpregado){
-            if(empragado.getCPF().equals(cpfempregado)){
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empragado: ");
-                empragado.setNome(novoNome);
-            }
-            else{
-                System.out.println("Empregado nao encontrado");
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpfempregado)){
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empregado: ");
+                empregado.setNome(novoNome);
                 return;
             }
         }
+        System.out.println("Empregado nao encontrado");
     }
     public void AlterarTelefone(Scanner sc){
-        String cpfempragado = ValidadorM.lerCPF(sc,"Digite o CPF do empragado que deseja atualizar: ");
-        for(EmpregadoM empragado : vetEmpregado){
-            if(empragado.getCPF().equals(cpfempragado)){
-                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empragado: ");
-                empragado.setTelefone(novotelefone);
-            }
-            else{
-                System.out.println("Empregado nao encontrado");
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpfempregado)){
+                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empregado: ");
+                empregado.setTelefone(novotelefone);
                 return;
             }
         }
+        System.out.println("Empregado nao encontrado");
     }
     public void AlterarDataNascimento(Scanner sc){
-        String cpfempragado = ValidadorM.lerCPF(sc,"Digite o CPF do empragado que deseja atualizar: ");
-        for(EmpregadoM empragado : vetEmpregado){
-            if(empragado.getCPF().equals(cpfempragado)){
-                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empragado: ");
-                empragado.setNascimento(novoNascimento);
-            }
-            else{
-                System.out.println("Empregado nao encontrado");
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpfempregado)){
+                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empregado: ");
+                empregado.setNascimento(novoNascimento);
                 return;
             }
         }
+        System.out.println("Empregado nao encontrado");
     }
     public void AlterarSexo(Scanner sc){
-        String cpfempragado = ValidadorM.lerCPF(sc,"Digite o CPF do empragado que deseja atualizar: ");
-        for(EmpregadoM empragado : vetEmpregado){
-            if(empragado.getCPF().equals(cpfempragado)){
-                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empragado: ");
-                empragado.setSexo(novosexo);
-            }
-            else{
-                System.out.println("Empregado nao encontrado");
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpfempregado)){
+                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empregado: ");
+                empregado.setSexo(novosexo);
                 return;
             }
         }
+        System.out.println("Empregado nao encontrado");
     }
     public void AlterarCargo(Scanner sc){
         String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empragado : vetEmpregado){
-            if(empragado.getCPF().equals(cpfempregado)){
-                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empragado: ");
-                empragado.setCargo(novocargo);
-            }
-            else{
-                System.out.println("Empregado nao encontrado");
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpfempregado)){
+                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empregado: ");
+                empregado.setCargo(novocargo);
                 return;
             }
         }
+        System.out.println("Empregado nao encontrado");
     }
     public void AlterarTudo(Scanner sc){
         String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empragado : vetEmpregado){
-            if(empragado.getCPF().equals(cpfempregado)){
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empragado: ");
-                empragado.setNome(novoNome);
-                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empragado: ");
-                empragado.setTelefone(novotelefone);
-                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empragado: ");
-                empragado.setNascimento(novoNascimento);
-                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empragado: ");
-                empragado.setSexo(novosexo);
-                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empragado: ");
-                empragado.setCargo(novocargo);
-            }
-            else{
-                System.out.println("Empregado nao encontrado");
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpfempregado)){
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empregado: ");
+                empregado.setNome(novoNome);
+                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empregado: ");
+                empregado.setTelefone(novotelefone);
+                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empregado: ");
+                empregado.setNascimento(novoNascimento);
+                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empregado: ");
+                empregado.setSexo(novosexo);
+                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empregado: ");
+                empregado.setCargo(novocargo);
                 return;
             }
         }
+        System.out.println("Empregado nao encontrado");
     }
 }

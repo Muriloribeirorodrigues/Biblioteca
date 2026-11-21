@@ -72,7 +72,7 @@ public class BibliotecaC {
             return;
         }
         int opcao = 0;
-        while(opcao != 4){
+        while(opcao != 5){
             System.out.println("1 - Alterar nome de um livro");
             System.out.println("2 - Alterar autor de um livro");
             System.out.println("3 - Alterar genero de um livro");
@@ -115,7 +115,7 @@ public class BibliotecaC {
                         case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
                             int quantidadeRetirada = ValidadorM.lerInt(sc) ;
                             if (quantidadeRetirada > livro.getQuantidade()){
-                                System.out.println("Estoque insuficiente. Só há" + livro.getQuantidade() + "unidade no estoque.");
+                                System.out.println("Estoque insuficiente. Só há " + livro.getQuantidade() + " unidade no estoque.");
                             }
                             else{
                                 livro.setQuantidade(livro.getQuantidade() - quantidadeRetirada);
@@ -201,12 +201,10 @@ public class BibliotecaC {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro");
                 livro.SetNomeDoLivro(novonome);
-            }
-            else{
-                System.out.println("Livro nao cadastrado no estoque");
                 return;
             }
         }
+        System.out.println("Livro nao cadastrado no estoque");
     }
     public void AlterarAutor(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
@@ -214,12 +212,10 @@ public class BibliotecaC {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
                 livro.SetAutor(novoautor);
-            }
-            else{
-                System.out.println("Livro nao cadastrado no estoque");
                 return;
             }
         }
+        System.out.println("Livro nao cadastrado no estoque");
     }
     public void AlterarGenero(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
@@ -227,12 +223,10 @@ public class BibliotecaC {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
                 livro.SetGenero(novogenero);
-            }
-            else{
-                System.out.println("Livro nao cadastrado no estoque");
                 return;
             }
         }
+        System.out.println("Livro nao cadastrado no estoque");
     }
     public void AlterarTudo(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
@@ -247,12 +241,11 @@ public class BibliotecaC {
                 System.out.println("Digite a nova quantidade do livro no estoque");
                 int novaquantidade = ValidadorM.lerInt(sc);
                 livro.setQuantidade(novaquantidade);
-            }
-            else{
-                System.out.println("Livro nao cadastrado no estoque");
                 return;
             }
+            
         }
+        System.out.println("Livro nao cadastrado no estoque");
     }
 }
 

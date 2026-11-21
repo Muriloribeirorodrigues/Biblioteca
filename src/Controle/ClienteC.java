@@ -57,9 +57,7 @@ public class ClienteC {
         if (SemClientes()) {
             return;
         }
-        System.out.println("Digite o CPF do cliente que deseja buscar: ");
-        String cpfcliente = sc.nextLine();
-        String cpfFormatado = ValidadorM.formatarCPF(cpfcliente);
+        String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja buscar: ");
         for(ClienteM cliente : vetClientes){
             if(cliente.getCPF().equals(cpfFormatado)){
                 cliente.PrintCliente();
@@ -89,13 +87,14 @@ public class ClienteC {
             return;
         }
         int opcao = 0;
-        while (opcao != 5){
+        while (opcao != 6){
             System.out.println("1 - Atualizar nome do cliente");
             System.out.println("2 - Atualizar telefone do cliente");
             System.out.println("3 - Atualizar data de nascimento do cliente");
             System.out.println("4 - Atualizar sexo do cliente");
             System.out.println("5 - Atualizar tudo");
             System.out.println("6 - Voltar");
+            opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
                 case 1 -> AlterarNome(sc);
@@ -171,12 +170,10 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do cliente: ");
                 cliente.setNome(novoNome);
-            }
-            else{
-                System.out.println("Cliente nao encontrado");
                 return;
             }
         }
+        System.out.println("Cliente nao encontrado");
     }
     public void AlterarTelefone(Scanner sc){
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
@@ -184,12 +181,10 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do cliente: ");
                 cliente.setTelefone(novotelefone);
-            }
-            else{
-                System.out.println("Cliente nao encontrado");
                 return;
             }
         }
+        System.out.println("Cliente nao encontrado");
     }
     public void AlterarDataNascimento(Scanner sc){
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
@@ -197,12 +192,10 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do cliente: ");
                 cliente.setNascimento(novoNascimento);
-            }
-            else{
-                System.out.println("Cliente nao encontrado");
                 return;
             }
         }
+        System.out.println("Cliente nao encontrado");
     }
     public void AlterarSexo(Scanner sc){
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
@@ -210,12 +203,10 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
                 cliente.setSexo(novosexo);
-            }
-            else{
-                System.out.println("Cliente nao encontrado");
                 return;
             }
         }
+        System.out.println("Cliente nao encontrado");
     }
     public void AlterarTudo(Scanner sc){
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
@@ -229,11 +220,10 @@ public class ClienteC {
                 cliente.setNascimento(novoNascimento);
                 char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
                 cliente.setSexo(novosexo);
-            }
-            else{
-                System.out.println("Cliente nao encontrado");
                 return;
             }
+            
         }
+        System.out.println("Cliente nao encontrado");
     }
 }
