@@ -66,6 +66,14 @@ public class EmpregadoC {
         }
         System.out.println("Empregado não encontrado.");
     }
+    public EmpregadoM BuscarEmpregadoPorCPF(String cpf){
+        for (EmpregadoM empregado : vetEmpregado) {
+            if (empregado.getCPF().equals(cpf)) {
+                return empregado;
+            }
+        }
+        return null;
+    }
     public void RemoveEmpregado(Scanner sc){
         if(SemEmpregado()){
             return;
@@ -85,6 +93,12 @@ public class EmpregadoC {
         if(SemEmpregado()){
             return;
         }
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        EmpregadoM empregado = BuscarEmpregadoPorCPF(cpfempregado);
+            if(empregado == null){
+                System.out.println("empregado nao encontrado");
+                return;
+            }
         int opcao = 0;
         while (opcao != 7){
             System.out.println("1 - Atualizar nome do empregado");
@@ -97,12 +111,17 @@ public class EmpregadoC {
             opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
-                case 1 -> AlterarNome(sc);
-                case 2 -> AlterarTelefone(sc);
-                case 3 -> AlterarDataNascimento(sc);
-                case 4 -> AlterarSexo(sc);
-                case 5 -> AlterarCargo(sc);
-                case 6 -> AlterarTudo(sc);
+                case 1 -> empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
+                case 2 -> empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
+                case 3 -> empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
+                case 4 -> empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do empregado: "));
+                case 5 -> empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
+                case 6 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
+                           empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
+                           empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
+                           empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo Sexo do empregado: "));
+                           empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
+                }
                 case 7 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
@@ -201,6 +220,7 @@ public class EmpregadoC {
             if(empregado.getCPF().equals(cpfempregado)){
                 String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empregado: ");
                 empregado.setNome(novoNome);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -212,6 +232,7 @@ public class EmpregadoC {
             if(empregado.getCPF().equals(cpfempregado)){
                 String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empregado: ");
                 empregado.setTelefone(novotelefone);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -223,6 +244,7 @@ public class EmpregadoC {
             if(empregado.getCPF().equals(cpfempregado)){
                 String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empregado: ");
                 empregado.setNascimento(novoNascimento);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -234,6 +256,7 @@ public class EmpregadoC {
             if(empregado.getCPF().equals(cpfempregado)){
                 char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empregado: ");
                 empregado.setSexo(novosexo);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -245,6 +268,7 @@ public class EmpregadoC {
             if(empregado.getCPF().equals(cpfempregado)){
                 String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empregado: ");
                 empregado.setCargo(novocargo);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -264,6 +288,7 @@ public class EmpregadoC {
                 empregado.setSexo(novosexo);
                 String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empregado: ");
                 empregado.setCargo(novocargo);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }

@@ -67,6 +67,15 @@ public class ClienteC {
         System.out.println("Cliente não encontrado.");
     }
 
+    public ClienteM BuscarClientePorCPF(String cpf){
+        for (ClienteM cliente : vetClientes) {
+            if (cliente.getCPF().equals(cpf)) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
     public void RemoverClientePorCPF(Scanner sc){
         if (SemClientes()) {
             return;
@@ -86,6 +95,13 @@ public class ClienteC {
         if (SemClientes()) {
             return;
         }
+        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
+        ClienteM cliente = BuscarClientePorCPF(cpfcliente);
+            if(cliente == null){
+                System.out.println("Cliente nao encontrado");
+                return;
+            }
+            
         int opcao = 0;
         while (opcao != 6){
             System.out.println("1 - Atualizar nome do cliente");
@@ -97,11 +113,15 @@ public class ClienteC {
             opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
-                case 1 -> AlterarNome(sc);
-                case 2 -> AlterarTelefone(sc);
-                case 3 -> AlterarDataNascimento(sc);
-                case 4 -> AlterarSexo(sc);
-                case 5 -> AlterarTudo(sc);
+                case 1 -> cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
+                case 2 -> cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
+                case 3 -> cliente.setNascimento(ValidadorM.lerData(sc, "Digite o novo nome do cliente: "));
+                case 4 -> cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo nome do cliente: "));
+                case 5 -> {cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
+                           cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
+                           cliente.setNascimento(ValidadorM.lerData(sc, "Digite o novo nome do cliente: "));
+                           cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo nome do cliente: "));
+                }
                 case 6 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
@@ -170,6 +190,7 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do cliente: ");
                 cliente.setNome(novoNome);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -181,6 +202,7 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do cliente: ");
                 cliente.setTelefone(novotelefone);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -192,6 +214,7 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do cliente: ");
                 cliente.setNascimento(novoNascimento);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -203,6 +226,7 @@ public class ClienteC {
             if(cliente.getCPF().equals(cpfcliente)){
                 char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
                 cliente.setSexo(novosexo);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -220,6 +244,7 @@ public class ClienteC {
                 cliente.setNascimento(novoNascimento);
                 char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
                 cliente.setSexo(novosexo);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
             

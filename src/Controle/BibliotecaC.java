@@ -197,12 +197,16 @@ public class BibliotecaC {
     }
     public void AlterarNome(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
-        for (Livro livro : vetBiblioteca){
-            if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
-                String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro");
-                livro.SetNomeDoLivro(novonome);
-                return;
-            }
+        Livro livro = BuscarPorNome(nomelivro);
+        if (livro == null){
+            System.out.println("Livro nao cadastrado no estoque");
+            return;
+        }
+        String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro: ");
+        Livro existente = BuscarPorNome(novonome);
+        if (existente != null && existente != livro){
+        System.out.println("Ja existe outro livro com esse nome");
+        return;
         }
         System.out.println("Livro nao cadastrado no estoque");
     }
@@ -212,6 +216,7 @@ public class BibliotecaC {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
                 livro.SetAutor(novoautor);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -223,6 +228,7 @@ public class BibliotecaC {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
                 livro.SetGenero(novogenero);
+                System.out.println("Alteracao feita com sucesso");
                 return;
             }
         }
@@ -230,22 +236,34 @@ public class BibliotecaC {
     }
     public void AlterarTudo(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
-        for (Livro livro : vetBiblioteca){
-            if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
-                String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro");
-                livro.SetNomeDoLivro(novonome);
-                String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
-                livro.SetAutor(novoautor);
-                String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
-                livro.SetGenero(novogenero);
-                System.out.println("Digite a nova quantidade do livro no estoque");
-                int novaquantidade = ValidadorM.lerInt(sc);
-                livro.setQuantidade(novaquantidade);
-                return;
-            }
-            
+        Livro livro = BuscarPorNome(nomelivro);
+        if (livro == null){
+            System.out.println("Livro nao cadastrado no estoque");
+            return;
         }
-        System.out.println("Livro nao cadastrado no estoque");
+        String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro: ");
+        Livro existente = BuscarPorNome(novonome);
+        if (existente != null && existente != livro){
+        System.out.println("Ja existe outro livro com esse nome");
+        return;
+        }
+        String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
+        livro.SetAutor(novoautor);
+        String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
+        livro.SetGenero(novogenero);
+        System.out.println("Digite a nova quantidade do livro no estoque");
+        int novaquantidade = ValidadorM.lerInt(sc);
+        livro.setQuantidade(novaquantidade);
+        System.out.println("Alteracao feita com sucesso");
+        } 
+    public Livro BuscarPorNome(String nome){
+        for (Livro livro : vetBiblioteca){
+        if (livro.getNomeDoLivro().equalsIgnoreCase(nome)){
+                return livro;
+            }
+        }
+        return null;
+
     }
 }
 
