@@ -147,7 +147,7 @@ public class EmpregadoC {
                         String cpfCliente = sc.nextLine();
                         String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
                         for (ClienteM cliente : clientes.getVetClientes()) {
-                            if (cliente.getCPF().equals(cpfFormatado)) {
+                            if (cliente.getCPF().equals(cpfFormatado) && cliente.isAtivo()) {
                                 if (livro.getQuantidade() > 0) {
                                     livro.setQuantidade(livro.getQuantidade() - 1);
 
@@ -177,7 +177,7 @@ public class EmpregadoC {
             return;
         }
         for (EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
-            if (emprestimo.isAtivo()) {
+            if (emprestimo.isAtivo() && emprestimo.getCliente().isAtivo()) {
                 System.out.println(emprestimo);
             }
         }
@@ -191,7 +191,7 @@ public class EmpregadoC {
         String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
         int encontrado = 0;
         for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
-            if (emprestimo.getCliente().getCPF().equals(cpfFormatado)) {
+            if (emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.isAtivo()) {
                 System.out.println(emprestimo);
                 encontrado++;
             }

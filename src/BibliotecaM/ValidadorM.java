@@ -77,10 +77,15 @@ public final class ValidadorM {
     public static int lerInt(Scanner sc){
         while (true) { 
             try {
-                return Integer.parseInt(sc.nextLine().trim());
-            } catch (NumberFormatException e) {
+                int numero = Integer.parseInt(sc.nextLine().trim());
+
+                if (numero <= 0){
+                    System.out.println("Coloque numeros positivos");
+                }
+            } 
+                catch (NumberFormatException e) {
                 System.out.println("Digite um numero inteiro");
-            }
+                }
         }
     }
 

@@ -2,8 +2,22 @@ package BibliotecaM;
 
 public class ClienteM extends Pessoa {
 
+    private boolean ativo = true;
+
     public ClienteM(String nome, String telefone, String cpf, String nascimento, char sexo){
         super(nome, telefone, cpf, nascimento, sexo);
+    }
+
+    public boolean isAtivo(){
+        return ativo;
+    }
+
+    public void desativar(){
+        this.ativo = false;
+    }
+
+    public void ativar(){
+        this.ativo = true;
     }
 
     public void PrintCliente(){

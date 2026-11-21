@@ -13,4 +13,14 @@ public class EmprestimoC {
     public EmprestimoC() {
         vetEmprestimo = new ArrayList<EmprestimoM>();
     }
+
+    public boolean possuiEmprestimosAtivos(String cpf){
+        for(EmprestimoM emprestimo : vetEmprestimo){
+            if(emprestimo.isAtivo() && emprestimo.getCliente().getCPF().equals(cpf)){
+                System.out.println("Cliente possui emprestimo ativo");
+                return true;
+            }
+        }
+        return false;
+    }
 }

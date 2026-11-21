@@ -205,10 +205,11 @@ public class BibliotecaC {
         String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro: ");
         Livro existente = BuscarPorNome(novonome);
         if (existente != null && existente != livro){
-        System.out.println("Ja existe outro livro com esse nome");
-        return;
+            System.out.println("Ja existe outro livro com esse nome");
+            return;
         }
-        System.out.println("Livro nao cadastrado no estoque");
+        livro.SetNomeDoLivro(nomelivro);
+        System.out.println("Alteracao feita com sucesso");
     }
     public void AlterarAutor(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");

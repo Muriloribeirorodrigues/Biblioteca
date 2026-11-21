@@ -116,7 +116,7 @@ private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC 
                 case 1 -> executar(() -> cliente.CadastrarCliente(sc));
                 case 2 -> executar(() -> cliente.listarClientes());
                 case 3 -> executar(() -> cliente.BuscarClientePorCPF(sc));
-                case 4 -> executar(() -> cliente.RemoverClientePorCPF(sc));
+                case 4 -> executar(() -> cliente.RemoverClientePorCPF(sc, emprestimo));
                 case 5 -> executar(() -> cliente.AtualizarDadosCliente(sc));
                 case 6 -> executar(() -> cliente.DevolverLivro(biblioteca, empregado, emprestimo, sc));
                 case 7 -> executar(() -> cliente.ConsultarEmprestimoPorCPF(empregado, emprestimo, sc));

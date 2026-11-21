@@ -2,7 +2,6 @@ package Controle;
 import BibliotecaM.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDateTime;
 
 public class ClienteC {
     private ArrayList<ClienteM> vetClientes;
@@ -21,17 +20,31 @@ public class ClienteC {
 
     public void CadastrarCliente(Scanner sc){
 
+        String CPF = ValidadorM.lerCPF(sc, "CPF: ");
+        
+        ClienteM existente = BuscaClientesPorCPFIncluindoInativos(CPF);
+
+        if (existente != null){
+            if(existente.isAtivo()){
+                System.out.println("Cpf ja cadastrado");
+                return;
+            }
+            System.out.println("Ja existe um cadastro inativo com esse cpf");
+            System.out.println("Deseja reativar esse cadastro? (S/N)");
+            String resposta = sc.nextLine().trim();
+            if(resposta.equalsIgnoreCase("S")){
+                existente.ativar();
+                System.out.println("Cliente reativado com sucesso");
+            }
+            else{
+                System.out.println("Operacao cancelada");
+            }
+            return;
+        }
+
         String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
 
         String telefone = ValidadorM.lerTelefone(sc, "Telefone");
-
-        String CPF = ValidadorM.lerCPF(sc, "CPF: ");
-        for (ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(CPF)){
-                System.out.println("CPF já cadastrado");
-                return;
-            }
-        }
 
         String nascimento = ValidadorM.lerData(sc, "Data de nascimento: ddmmaaaa");
 
@@ -49,7 +62,9 @@ public class ClienteC {
             return;
         }
         for (ClienteM cliente : vetClientes) {
-            cliente.PrintCliente();
+            if(cliente.isAtivo()){
+                cliente.PrintCliente();
+            }
         }
     }
 
@@ -69,26 +84,38 @@ public class ClienteC {
 
     public ClienteM BuscarClientePorCPF(String cpf){
         for (ClienteM cliente : vetClientes) {
-            if (cliente.getCPF().equals(cpf)) {
+            if (cliente.getCPF().equals(cpf) && cliente.isAtivo()) {
                 return cliente;
             }
         }
         return null;
     }
 
-    public void RemoverClientePorCPF(Scanner sc){
+    private ClienteM BuscaClientesPorCPFIncluindoInativos(String cpf){
+        for(ClienteM cliente : vetClientes){
+            if(cliente.getCPF().equals(cpf)){
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public void RemoverClientePorCPF(Scanner sc, EmprestimoC emprestimos){
         if (SemClientes()) {
             return;
         }
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do cliente que deseja remover: ");
-        for (int i = 0; i < vetClientes.size(); i++) {
-            if (vetClientes.get(i).getCPF().equalsIgnoreCase(cpf)) {
-                vetClientes.remove(i);
-                System.out.println("Cliente removido com sucesso!");
+        ClienteM cliente = BuscarClientePorCPF(cpf);
+        if(cliente == null){
+            System.out.println("Cliente nao encontrado");
                 return;
             }
+        if(emprestimos.possuiEmprestimosAtivos(cpf)){
+            System.out.println("Cliente possui um emprestimo ativo e nao pode ser removido");
+            return;
         }
-        System.out.println("Cliente nao encontrado");
+        cliente.desativar();
+        System.out.println("Cliente removido com sucesso!");
     }
 
     public void AtualizarDadosCliente(Scanner sc){
@@ -168,7 +195,7 @@ public class ClienteC {
         String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
         int encontrado = 0;
         for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
-            if (emprestimo.getCliente().getCPF().equals(cpfFormatado)) {
+            if (emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.isAtivo()) {
                 System.out.println(emprestimo);
                 encontrado++;
             }
@@ -178,11 +205,13 @@ public class ClienteC {
         }
     }
     private boolean SemClientes(){
-        if (vetClientes.isEmpty()){
-            System.out.println("Sem clientes cadastrados");
-            return true;
+        for(ClienteM cliente : vetClientes){
+            if(cliente.isAtivo()){
+                return false;
+            }
         }
-        return false;
+        System.out.println("Sem clientes ativos");
+        return true;
     }
     public void AlterarNome(Scanner sc){
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
