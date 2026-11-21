@@ -71,28 +71,20 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        System.out.println("Digite o nome do livro que deseja atualizar: ");
-        String nomeLivro = sc.nextLine();
-        for (Livro livro : vetBiblioteca) {
-            if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
-                System.out.println("Digite o novo nome do livro: ");
-                String novoNome = sc.nextLine();
-                livro.SetNomeDoLivro(novoNome);
+        int opcao = 0;
+        while(opcao != 4){
+            System.out.println("1 - Alterar nome de um livro");
+            System.out.println("2 - Alterar autor de um livro");
+            System.out.println("3 - Alterar genero de um livro");
+            System.out.println("4 - Voltar");
+            opcao = ValidadorM.lerInt(sc);
 
-                System.out.println("Digite o novo autor do livro: ");
-                String novoAutor = sc.nextLine();
-                livro.SetAutor(novoAutor);
-
-                System.out.println("Digite o novo gênero do livro: ");
-                String novoGenero = sc.nextLine();
-                livro.SetGenero(novoGenero);
-
-                System.out.println("Digite a nova quantidade do livro: ");
-                int novaQuantidade = ValidadorM.lerInt(sc);
-                livro.setQuantidade(novaQuantidade);
-
-                System.out.println("Dados do livro atualizados com sucesso.");
-                return;
+            switch(opcao){
+                case 1 -> AlterarNome(sc);
+                case 2 -> AlterarAutor(sc);
+                case 3 -> AlterarGenero(sc);
+                case 4 -> System.out.println("Voltar");
+                default -> System.out.println("Opcao invalida");
             }
         }
     }
@@ -121,7 +113,7 @@ public class BibliotecaC {
                         case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
                             int quantidadeRetirada = ValidadorM.lerInt(sc) ;
                             if (quantidadeRetirada > livro.getQuantidade()){
-                                System.out.println("Estoque insuficiente. Só há" + livro.getQuantidade() + "unidade no estoque");
+                                System.out.println("Estoque insuficiente. Só há" + livro.getQuantidade() + "unidade no estoque.");
                             }
                             else{
                                 livro.setQuantidade(livro.getQuantidade() - quantidadeRetirada);
@@ -201,6 +193,45 @@ public class BibliotecaC {
         }
         return false;
     }
+    public void AlterarNome(Scanner sc){
+        String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
+        for (Livro livro : vetBiblioteca){
+            if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
+                String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro");
+                livro.SetNomeDoLivro(novonome);
+            }
+            else{
+                System.out.println("Livro nao cadastrado no estoque");
+                return;
+            }
+        }
+    }
+    public void AlterarAutor(Scanner sc){
+        String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
+        for (Livro livro : vetBiblioteca){
+            if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
+                String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
+                livro.SetAutor(novoautor);
+            }
+            else{
+                System.out.println("Livro nao cadastrado no estoque");
+                return;
+            }
+        }
+    }
+    public void AlterarGenero(Scanner sc){
+        String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
+        for (Livro livro : vetBiblioteca){
+            if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
+                String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
+                livro.SetGenero(novogenero);
+            }
+            else{
+                System.out.println("Livro nao cadastrado no estoque");
+                return;
+            }
+        }
+    }   
 }
 
 

@@ -46,7 +46,7 @@ public class Livro {
 
      public void setQuantidade(int quantidade){
           if(quantidade < 0){
-               throw new IllegalArgumentException("Numero nao pode ser negativo");
+               throw new IllegalArgumentException("Quantidade nao pode ser negativa");
           }
           Quantidade = quantidade;
      }

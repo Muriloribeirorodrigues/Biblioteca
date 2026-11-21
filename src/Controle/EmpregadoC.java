@@ -59,7 +59,7 @@ public class EmpregadoC {
         }
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja buscar: ");
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getNome().equalsIgnoreCase(cpf)) {
+            if (empregado.getCPF().equalsIgnoreCase(cpf)) {
                 empregado.PrintEmpregado();
                 return;
             }
@@ -85,30 +85,25 @@ public class EmpregadoC {
         if(SemEmpregado()){
             return;
         }
-        String CPF = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja atualizar: ");
-        for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getCPF().equalsIgnoreCase(CPF)) {
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: ");
-                empregado.setNome(novoNome);
-                
-                String novoTelefone = ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: ");
-                empregado.setTelefone(novoTelefone);
+        int opcao = 0;
+        while (opcao != 6){
+            System.out.println("1 - Atualizar nome do empregado");
+            System.out.println("2 - Atualizar telefone do empregado");
+            System.out.println("3 - Atualizar data de nascimento do empregado");
+            System.out.println("4 - Atualizar sexo do empregado");
+            System.out.println("5 - Atualizar cargo do empregado");
+            System.out.println("6 - Voltar");
 
-                String novaDataNascimento = ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: ");
-                empregado.setNascimento(novaDataNascimento);
-
-                String novoCargo = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do cliente: ");
-                empregado.setCargo(novoCargo);
-
-                
-                char novoSexo = ValidadorM.lerSexo(sc, "Digite o novo sexo do empregado M/F: ");
-                empregado.setSexo(novoSexo);
-
-                System.out.println("Dados atualizados com sucesso!");
-                return;
+            switch(opcao){
+                case 1 -> AlterarNome(sc);
+                case 2 -> AlterarTelefone(sc);
+                case 3 -> AlterarDataNascimento(sc);
+                case 4 -> AlterarSexo(sc);
+                case 5 -> AlterarCargo(sc);
+                case 6 -> System.out.println("Voltar");
+                default -> System.out.println("Opcao invalida");
             }
         }
-        System.out.println("Empregado nao encontrado");
     }   
     public void EmprestarLivros(BibliotecaC biblioteca, ClienteC clientes, EmprestimoC emprestimo, Scanner sc){
         if (vetEmpregado.isEmpty() || biblioteca.getVetBiblioteca().isEmpty() || clientes.getVetClientes().isEmpty()) {
@@ -196,5 +191,70 @@ public class EmpregadoC {
             return true;
         }
         return false;
+    }
+    public void AlterarNome(Scanner sc){
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
+        for(EmpregadoM empragado : vetEmpregado){
+            if(empragado.getCPF().equals(cpfempregado)){
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empragado: ");
+                empragado.setNome(novoNome);
+            }
+            else{
+                System.out.println("Empregado nao encontrado");
+                return;
+            }
+        }
+    }
+    public void AlterarTelefone(Scanner sc){
+        String cpfempragado = ValidadorM.lerCPF(sc,"Digite o CPF do empragado que deseja atualizar: ");
+        for(EmpregadoM empragado : vetEmpregado){
+            if(empragado.getCPF().equals(cpfempragado)){
+                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empragado: ");
+                empragado.setTelefone(novotelefone);
+            }
+            else{
+                System.out.println("Empregado nao encontrado");
+                return;
+            }
+        }
+    }
+    public void AlterarDataNascimento(Scanner sc){
+        String cpfempragado = ValidadorM.lerCPF(sc,"Digite o CPF do empragado que deseja atualizar: ");
+        for(EmpregadoM empragado : vetEmpregado){
+            if(empragado.getCPF().equals(cpfempragado)){
+                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empragado: ");
+                empragado.setNascimento(novoNascimento);
+            }
+            else{
+                System.out.println("Empregado nao encontrado");
+                return;
+            }
+        }
+    }
+    public void AlterarSexo(Scanner sc){
+        String cpfempragado = ValidadorM.lerCPF(sc,"Digite o CPF do empragado que deseja atualizar: ");
+        for(EmpregadoM empragado : vetEmpregado){
+            if(empragado.getCPF().equals(cpfempragado)){
+                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empragado: ");
+                empragado.setSexo(novosexo);
+            }
+            else{
+                System.out.println("Empregado nao encontrado");
+                return;
+            }
+        }
+    }
+    public void AlterarCargo(Scanner sc){
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        for(EmpregadoM empragado : vetEmpregado){
+            if(empragado.getCPF().equals(cpfempregado)){
+                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empragado: ");
+                empragado.setCargo(novocargo);
+            }
+            else{
+                System.out.println("Empregado nao encontrado");
+                return;
+            }
+        }
     }
 }
