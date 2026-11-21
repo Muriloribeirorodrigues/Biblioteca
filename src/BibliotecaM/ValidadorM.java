@@ -81,7 +81,9 @@ public final class ValidadorM {
 
                 if (numero <= 0){
                     System.out.println("Coloque numeros positivos");
+                    continue;
                 }
+                return numero;
             } 
                 catch (NumberFormatException e) {
                 System.out.println("Digite um numero inteiro");

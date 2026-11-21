@@ -191,7 +191,7 @@ public class EmpregadoC {
         String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
         int encontrado = 0;
         for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
-            if (emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.isAtivo()) {
+            if (emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.isAtivo() && emprestimo.getCliente().isAtivo()) {
                 System.out.println(emprestimo);
                 encontrado++;
             }

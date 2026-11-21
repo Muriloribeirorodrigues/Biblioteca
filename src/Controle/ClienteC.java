@@ -73,13 +73,12 @@ public class ClienteC {
             return;
         }
         String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja buscar: ");
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfFormatado)){
-                cliente.PrintCliente();
-                return;
-            }
+        ClienteM cliente = BuscarClientePorCPF(cpfFormatado);
+        if(cliente == null){
+            System.out.println("Cliente nao encontrado");
+            return;
         }
-        System.out.println("Cliente não encontrado.");
+        cliente.PrintCliente();
     }
 
     public ClienteM BuscarClientePorCPF(String cpf){
@@ -279,5 +278,31 @@ public class ClienteC {
             
         }
         System.out.println("Cliente nao encontrado");
+    }
+    public void ReativarCadastro(Scanner sc){
+        boolean encontrou = false;
+        for(ClienteM cliente : vetClientes){
+            if(!cliente.isAtivo()){
+                cliente.PrintCliente();
+                encontrou = true;
+            }
+        }
+        if(!encontrou){
+            System.out.println("Nao existem clientes inativos");
+            return;
+        }
+        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf que deseja reativar");
+        for(ClienteM cliente : vetClientes){
+            if(cliente.getCPF().equals(cpf)){
+                if(cliente.isAtivo()){
+                System.out.println("Cliente ja possui cpf ativado");
+                return;
+                }
+            cliente.ativar();
+            System.out.println("Cliente reativado com sucesso");
+            return;
+            }
+        }
+        System.out.println("Nao existe esse cpf no sistema");
     }
 }

@@ -208,7 +208,7 @@ public class BibliotecaC {
             System.out.println("Ja existe outro livro com esse nome");
             return;
         }
-        livro.SetNomeDoLivro(nomelivro);
+        livro.SetNomeDoLivro(novonome);
         System.out.println("Alteracao feita com sucesso");
     }
     public void AlterarAutor(Scanner sc){
