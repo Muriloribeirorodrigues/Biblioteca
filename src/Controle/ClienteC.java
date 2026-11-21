@@ -94,14 +94,16 @@ public class ClienteC {
             System.out.println("2 - Atualizar telefone do cliente");
             System.out.println("3 - Atualizar data de nascimento do cliente");
             System.out.println("4 - Atualizar sexo do cliente");
-            System.out.println("5 - Voltar");
+            System.out.println("5 - Atualizar tudo");
+            System.out.println("6 - Voltar");
 
             switch(opcao){
                 case 1 -> AlterarNome(sc);
                 case 2 -> AlterarTelefone(sc);
                 case 3 -> AlterarDataNascimento(sc);
                 case 4 -> AlterarSexo(sc);
-                case 5 -> System.out.println("Voltar");
+                case 5 -> AlterarTudo(sc);
+                case 6 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
         }
@@ -206,6 +208,25 @@ public class ClienteC {
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
         for(ClienteM cliente : vetClientes){
             if(cliente.getCPF().equals(cpfcliente)){
+                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
+                cliente.setSexo(novosexo);
+            }
+            else{
+                System.out.println("Cliente nao encontrado");
+                return;
+            }
+        }
+    }
+    public void AlterarTudo(Scanner sc){
+        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
+        for(ClienteM cliente : vetClientes){
+            if(cliente.getCPF().equals(cpfcliente)){
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do cliente: ");
+                cliente.setNome(novoNome);
+                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do cliente: ");
+                cliente.setTelefone(novotelefone);
+                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do cliente: ");
+                cliente.setNascimento(novoNascimento);
                 char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
                 cliente.setSexo(novosexo);
             }

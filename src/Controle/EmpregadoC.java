@@ -92,7 +92,8 @@ public class EmpregadoC {
             System.out.println("3 - Atualizar data de nascimento do empregado");
             System.out.println("4 - Atualizar sexo do empregado");
             System.out.println("5 - Atualizar cargo do empregado");
-            System.out.println("6 - Voltar");
+            System.out.println("6 - Alterar tudo");
+            System.out.println("7 - Voltar");
 
             switch(opcao){
                 case 1 -> AlterarNome(sc);
@@ -100,7 +101,8 @@ public class EmpregadoC {
                 case 3 -> AlterarDataNascimento(sc);
                 case 4 -> AlterarSexo(sc);
                 case 5 -> AlterarCargo(sc);
-                case 6 -> System.out.println("Voltar");
+                case 6 -> AlterarTudo(sc);
+                case 7 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
         }
@@ -248,6 +250,27 @@ public class EmpregadoC {
         String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
         for(EmpregadoM empragado : vetEmpregado){
             if(empragado.getCPF().equals(cpfempregado)){
+                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empragado: ");
+                empragado.setCargo(novocargo);
+            }
+            else{
+                System.out.println("Empregado nao encontrado");
+                return;
+            }
+        }
+    }
+    public void AlterarTudo(Scanner sc){
+        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+        for(EmpregadoM empragado : vetEmpregado){
+            if(empragado.getCPF().equals(cpfempregado)){
+                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empragado: ");
+                empragado.setNome(novoNome);
+                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empragado: ");
+                empragado.setTelefone(novotelefone);
+                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empragado: ");
+                empragado.setNascimento(novoNascimento);
+                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empragado: ");
+                empragado.setSexo(novosexo);
                 String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empragado: ");
                 empragado.setCargo(novocargo);
             }

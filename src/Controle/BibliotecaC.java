@@ -76,14 +76,16 @@ public class BibliotecaC {
             System.out.println("1 - Alterar nome de um livro");
             System.out.println("2 - Alterar autor de um livro");
             System.out.println("3 - Alterar genero de um livro");
-            System.out.println("4 - Voltar");
+            System.out.println("4 - Alterar tudo");
+            System.out.println("5 - Voltar");
             opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
                 case 1 -> AlterarNome(sc);
                 case 2 -> AlterarAutor(sc);
                 case 3 -> AlterarGenero(sc);
-                case 4 -> System.out.println("Voltar");
+                case 4 -> AlterarTudo(sc);
+                case 5 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
         }
@@ -231,7 +233,27 @@ public class BibliotecaC {
                 return;
             }
         }
-    }   
+    }
+    public void AlterarTudo(Scanner sc){
+        String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
+        for (Livro livro : vetBiblioteca){
+            if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
+                String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro");
+                livro.SetNomeDoLivro(novonome);
+                String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
+                livro.SetAutor(novoautor);
+                String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
+                livro.SetGenero(novogenero);
+                System.out.println("Digite a nova quantidade do livro no estoque");
+                int novaquantidade = ValidadorM.lerInt(sc);
+                livro.setQuantidade(novaquantidade);
+            }
+            else{
+                System.out.println("Livro nao cadastrado no estoque");
+                return;
+            }
+        }
+    }
 }
 
 
