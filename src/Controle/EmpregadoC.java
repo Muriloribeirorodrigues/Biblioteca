@@ -165,50 +165,87 @@ public class EmpregadoC {
             }
         }
     }   
-    public void EmprestarLivros(BibliotecaC biblioteca, ClienteC clientes, EmprestimoC emprestimo, Scanner sc){
-        if (vetEmpregado.isEmpty() || biblioteca.getVetBiblioteca().isEmpty() || clientes.getVetClientes().isEmpty()) {
-            System.out.println("Sem empregados, livros ou clientes cadastrados");
+    public void EmprestarLivros(BibliotecaC biblioteca, ClienteC clientes, EmprestimoC emprestimo, Scanner sc) {
+
+        if (biblioteca == null || clientes == null || emprestimo == null) {
+            System.out.println("Erro ao acessar os cadastros");
             return;
         }
-        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja realizar o empréstimo: ");
-        for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getCPF().equalsIgnoreCase(cpf) && empregado.isAtivo()) {
-                System.out.println("Livros disponiveis para emprestimo: ");
-                for (Livro livro : biblioteca.getVetBiblioteca()) {
-                    System.out.println("- " + livro.getNomeDoLivro());
-                }
-                System.out.println("Digite o nome do livro que deseja emprestar: ");
-                String nomeLivro = sc.nextLine();
-                for (Livro livro : biblioteca.getVetBiblioteca()) {
-                    if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
-                        System.out.println("Digite o CPF do cliente que deseja realizar o empréstimo: ");
-                        String cpfCliente = sc.nextLine();
-                        String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
-                        for (ClienteM cliente : clientes.getVetClientes()) {
-                            if (cliente.getCPF().equals(cpfFormatado) && cliente.isAtivo()) {
-                                if (livro.getQuantidade() > 0) {
-                                    livro.setQuantidade(livro.getQuantidade() - 1);
 
-                                        LocalDateTime dataEmprestimo = LocalDateTime.now();
-                                        emprestimo.getVetEmprestimo().add(new EmprestimoM(
-                                            cliente, empregado, livro, dataEmprestimo, dataEmprestimo.plusDays(14), null));
-                                    System.out.println("Empréstimo realizado com sucesso!");
-                                    return;
-                                } else {
-                                    System.out.println("Livro indisponível para empréstimo.");
-                                    return;
-                                }
-                            }
-                        }
-                        System.out.println("Cliente não encontrado.");
-                        return;
-                    }
-                }
-                System.out.println("Livro não encontrado.");
-                return;
+        if (biblioteca.getVetBiblioteca().isEmpty()) {
+            System.out.println("Nao existem livros cadastrados");
+            return;
+        }
+
+        String cpf = ValidadorM.lerCPF(sc, "Digite o CPF do empregado: ");
+
+        EmpregadoM empregadoSelecionado = BuscarEmpregadoPorCPF(cpf);
+
+        if (empregadoSelecionado == null) {
+            System.out.println("Empregado nao encontrado ou inativo");
+            return;
+        }
+
+        System.out.println("Livros disponiveis para emprestimo:");
+
+        for (Livro livro : biblioteca.getVetBiblioteca()) {
+            if (livro.getQuantidade() > 0) {
+                System.out.println("- " + livro.getNomeDoLivro());
             }
         }
-        System.out.println("Empregado não encontrado.");
+
+        String nomeLivro = ValidadorM.lerTextoObrigatorio(
+            sc, "Digite o nome do livro que deseja emprestar: "
+        );
+
+        Livro livroSelecionado = null;
+
+        for (Livro livro : biblioteca.getVetBiblioteca()) {
+            if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
+                livroSelecionado = livro;
+                break;
+            }
+        }
+
+        if (livroSelecionado == null) {
+            System.out.println("Livro nao encontrado");
+            return;
+        }
+
+        if (livroSelecionado.getQuantidade() <= 0) {
+            System.out.println("Livro sem exemplares disponiveis");
+            return;
+        }
+
+        String cpfCliente = ValidadorM.lerCPF(
+            sc, "Digite o CPF do cliente: "
+        );
+
+        ClienteM clienteSelecionado = clientes.BuscarPorCPF(cpfCliente);
+
+        if (clienteSelecionado == null) {
+            System.out.println("Cliente nao encontrado ou inativo");
+            return;
+        }
+
+        LocalDateTime dataEmprestimo = LocalDateTime.now();
+
+        EmprestimoM novoEmprestimo = new EmprestimoM(
+            clienteSelecionado,
+            empregadoSelecionado,
+            livroSelecionado,
+            dataEmprestimo,
+            dataEmprestimo.plusDays(14),
+            null
+        );
+
+        emprestimo.getVetEmprestimo().add(novoEmprestimo);
+
+        livroSelecionado.setQuantidade(
+            livroSelecionado.getQuantidade() - 1
+        );
+
+        System.out.println("Emprestimo realizado com sucesso!");
     }
     public void ListarEmprestimo(EmprestimoC emprestimos){
         if (SemEmprestimo(emprestimos)){
@@ -217,6 +254,7 @@ public class EmpregadoC {
         for (EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
             if (emprestimo.isAtivo() && emprestimo.getCliente().isAtivo()) {
                 System.out.println(emprestimo);
+                return;
             }
         }
         System.out.println("Sem emprestimos ativos");
@@ -225,9 +263,7 @@ public class EmpregadoC {
         if (SemEmprestimo(emprestimos)){
             return;
         }
-        System.out.println("Digite o CPF do cliente que deseja consultar os empréstimos: ");
-        String cpfCliente = sc.nextLine();
-        String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
+        String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o cpf que deseja consultar emprestimos");
         int encontrado = 0;
         for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
             if (emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.isAtivo() && emprestimo.getCliente().isAtivo()) {

@@ -18,7 +18,7 @@ public class Pessoa {
         return CPF;
     }
 
-    public void setCPF(String cpf){
+    private void setCPF(String cpf){
         this.CPF = cpf;
     }
 

@@ -198,9 +198,7 @@ public class ClienteC {
             System.out.println("Não ha emprestimos registrados");
             return;
         }
-        System.out.println("Digite o CPF do cliente que deseja consultar os empréstimos: ");
-        String cpfCliente = sc.nextLine();
-        String cpfFormatado = ValidadorM.formatarCPF(cpfCliente);
+        String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o cpf que deseja consultar emprestimos");
         int encontrado = 0;
         for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
             if (emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.isAtivo() && emprestimo.getCliente().isAtivo()) {

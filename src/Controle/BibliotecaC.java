@@ -69,7 +69,7 @@ public class BibliotecaC {
             return;
         }
         String Nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja remover: ");
-        Livro livro = BuscarPorNome(Nomelivro);
+        Livro livro = BuscarLivroFuncao(Nomelivro);
 
         if(livro == null){
             System.out.println("Livro nao encontrado");
@@ -129,14 +129,17 @@ public class BibliotecaC {
                         case 1 -> {System.out.println("Quanto Livro deseja adicionar? ");
                             int quantidadeAdicional = ValidadorM.lerInt(sc);
                             livro.setQuantidade(livro.getQuantidade() + quantidadeAdicional);
+                            return;
                         }
                         case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
                             int quantidadeRetirada = ValidadorM.lerInt(sc) ;
                             if (quantidadeRetirada > livro.getQuantidade()){
                                 System.out.println("Estoque insuficiente. Só há " + livro.getQuantidade() + " unidade no estoque.");
+                                return;
                             }
                             else{
                                 livro.setQuantidade(livro.getQuantidade() - quantidadeRetirada);
+                                return;
                             }
                         }
                         case 3 -> System.out.println("Voltar");
@@ -145,6 +148,7 @@ public class BibliotecaC {
                 }
             }
         }
+        System.out.println("Livro nao encontrado");
     }
     public void ListarLivroPorGenero(Scanner sc){
         if(SemLivro()){
@@ -175,8 +179,7 @@ public class BibliotecaC {
         for(Livro livro : vetBiblioteca){
             System.out.println("- " + livro.getAutor());
         }
-        System.out.println("Digite o autor que deseja listar os Livro: ");
-        String autor = sc.nextLine();
+        String autor = ValidadorM.lerTextoObrigatorio(sc, "Digite o autor que deseja listar os Livro: ");
         int encontrado = 0;
         for (Livro livro : vetBiblioteca){
             if(livro.getAutor().equalsIgnoreCase(autor)){
@@ -215,13 +218,13 @@ public class BibliotecaC {
     }
     public void AlterarNome(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
-        Livro livro = BuscarPorNome(nomelivro);
+        Livro livro = BuscarLivroFuncao(nomelivro);
         if (livro == null){
             System.out.println("Livro nao cadastrado no estoque");
             return;
         }
         String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro: ");
-        Livro existente = BuscarPorNome(novonome);
+        Livro existente = BuscarLivroFuncao(novonome);
         if (existente != null && existente != livro){
             System.out.println("Ja existe outro livro com esse nome");
             return;
@@ -255,13 +258,13 @@ public class BibliotecaC {
     }
     public void AlterarTudo(Scanner sc){
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
-        Livro livro = BuscarPorNome(nomelivro);
+        Livro livro = BuscarLivroFuncao(nomelivro);
         if (livro == null){
             System.out.println("Livro nao cadastrado no estoque");
             return;
         }
         String novonome = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do livro: ");
-        Livro existente = BuscarPorNome(novonome);
+        Livro existente = BuscarLivroFuncao(novonome);
         if (existente != null && existente != livro){
         System.out.println("Ja existe outro livro com esse nome");
         return;
@@ -275,15 +278,6 @@ public class BibliotecaC {
         livro.setQuantidade(novaquantidade);
         System.out.println("Alteracao feita com sucesso");
         } 
-    public Livro BuscarPorNome(String nome){
-        for (Livro livro : vetBiblioteca){
-        if (livro.getNomeDoLivro().equalsIgnoreCase(nome)){
-                return livro;
-            }
-        }
-        return null;
-
-    }
 }
 
 
