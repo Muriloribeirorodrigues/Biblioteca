@@ -1,5 +1,7 @@
 package BibliotecaM;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 public final class ValidadorM {
@@ -19,19 +21,23 @@ public final class ValidadorM {
         System.out.println(mensagem);
         try {
             return ValidadorM.formatarCPF(sc.nextLine());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            } 
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
-}
 
     public static String formatarData(String data){
         String digitos = data.replaceAll("[^\\d]","");
         if(digitos.length()!=8){
-            throw new IllegalArgumentException("Data inválida. Deve conter 8 digitos.");
+            throw new IllegalArgumentException("Data inválida.");
         }
-        return digitos.substring(0, 2) + "/" + digitos.substring(2, 4) + "/" + digitos.substring(4, 8);
-
+        
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+        String formatada = digitos.substring(0, 2) + "/" + digitos.substring(2, 4) + "/" + digitos.substring(4, 8);
+        LocalDate.parse(formatada, formato);
+        return formatada;
     }
 
     public static String lerData(Scanner sc, String mensagem) {

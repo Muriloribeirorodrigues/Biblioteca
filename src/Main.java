@@ -137,5 +137,4 @@ private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC 
             System.out.println("Erro: " + e.getMessage());
         }
     }
-
 }   

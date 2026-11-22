@@ -44,7 +44,7 @@ public class ClienteC {
 
         String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
 
-        String telefone = ValidadorM.lerTelefone(sc, "Telefone");
+        String telefone = ValidadorM.lerTelefone(sc, "Telefone: ");
 
         String nascimento = ValidadorM.lerData(sc, "Data de nascimento: ddmmaaaa");
 

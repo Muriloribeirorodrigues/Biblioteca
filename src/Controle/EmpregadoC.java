@@ -44,13 +44,13 @@ public class EmpregadoC {
 
         String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
 
-        String telefone = ValidadorM.lerTelefone(sc, "Telefone");
+        String telefone = ValidadorM.lerTelefone(sc, "Telefone: ");
 
-        String nascimento = ValidadorM.lerData(sc, "Data de nascimento");
+        String nascimento = ValidadorM.lerData(sc, "Data de nascimento: ");
 
         String cargo = ValidadorM.lerTextoObrigatorio(sc, "Cargo: ");
 
-        char sexo = ValidadorM.lerSexo(sc, "Digite M (Masculino) ou F (Feminino)");
+        char sexo = ValidadorM.lerSexo(sc, "Digite M (Masculino) ou F (Feminino): ");
 
         EmpregadoM NovoEmpregado = new EmpregadoM(NomeCompleto, telefone, CPF, nascimento, cargo, sexo);
 
