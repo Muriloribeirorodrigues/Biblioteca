@@ -3,7 +3,7 @@ package BibliotecaM;
 public class EmpregadoM extends Pessoa{
     
     private String Cargo;
-    private boolean ativo;
+    private boolean ativo = true;
 
     public EmpregadoM(String nome, String telefone, String cpf, String nascimento, String cargo, char sexo){
         super(nome, telefone, cpf, nascimento, sexo);

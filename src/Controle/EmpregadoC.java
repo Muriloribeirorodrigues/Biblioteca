@@ -21,12 +21,6 @@ public class EmpregadoC {
     public void CadastrarEmpregado(Scanner sc){
 
         String CPF = ValidadorM.lerCPF(sc, "CPF: ");
-        for (EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(CPF)){
-                System.out.println("CPF já cadastrado");
-                return;
-            }
-        }
         
         EmpregadoM existente = BuscaEmpregadosPorCPFIncluindoInativos(CPF);
 
@@ -102,41 +96,44 @@ public class EmpregadoC {
         }
         return null;
     }
-    public void RemoveEmpregado(Scanner sc){
+    public void RemoveEmpregado(Scanner sc, EmprestimoC emprestimos){
         if(SemEmpregado()){
             return;
         }
 
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja remover: ");
-        for (int i = 0; i < vetEmpregado.size(); i++) {
-            if (vetEmpregado.get(i).getCPF().equalsIgnoreCase(cpf)) {
-                vetEmpregado.remove(i);
-                System.out.println("Empregado removido com sucesso!");
+        EmpregadoM Empregado = BuscarEmpregadoPorCPF(cpf);
+        if(Empregado == null){
+            System.out.println("Empregado nao encontrado");
                 return;
             }
+        if(emprestimos.possuiEmprestimosAtivos(cpf)){
+            System.out.println("Empregado possui um emprestimo ativo e nao pode ser removido");
+            return;
         }
-        System.out.println("Empregado nao encontrado");
+        Empregado.desativar();
+        System.out.println("Empregado removido com sucesso!");
     }
     public void AtualizarDadosEmpregado(Scanner sc){
         if(SemEmpregado()){
-            return;
+          return;
         }
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        EmpregadoM empregado = BuscarEmpregadoPorCPF(cpfempregado);
-            if(empregado == null){
-                System.out.println("empregado nao encontrado");
-                return;
-            }
-        int opcao = 0;
-        while (opcao != 7){
-            System.out.println("1 - Atualizar nome do empregado");
-            System.out.println("2 - Atualizar telefone do empregado");
-            System.out.println("3 - Atualizar data de nascimento do empregado");
-            System.out.println("4 - Atualizar sexo do empregado");
-            System.out.println("5 - Atualizar cargo do empregado");
-            System.out.println("6 - Alterar tudo");
-            System.out.println("7 - Voltar");
-            opcao = ValidadorM.lerInt(sc);
+            String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
+            EmpregadoM empregado = BuscarEmpregadoPorCPF(cpfempregado);
+                if(empregado == null){
+                    System.out.println("empregado nao encontrado");
+                    return;
+                }
+            int opcao = 0;
+            while (opcao != 7){
+                System.out.println("1 - Atualizar nome do empregado");
+                System.out.println("2 - Atualizar telefone do empregado");
+                System.out.println("3 - Atualizar data de nascimento do empregado");
+                System.out.println("4 - Atualizar sexo do empregado");
+                System.out.println("5 - Atualizar cargo do empregado");
+                System.out.println("6 - Alterar tudo");
+                System.out.println("7 - Voltar");
+                opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
                 case 1 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));

@@ -58,7 +58,7 @@ public class BibliotecaC {
     }
     public Livro BuscarLivro(String NomeDoLivro){
         for (Livro livro : vetBiblioteca) {
-            if (livro.getNomeDoLivro().equals(NomeDoLivro)) {
+            if (livro.getNomeDoLivro().equalsIgnoreCase(NomeDoLivro)) {
                 return livro;
             }
         }

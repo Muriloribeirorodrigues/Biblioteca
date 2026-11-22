@@ -65,7 +65,7 @@ private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC 
 
     int opcao2 = 0;
 
-    while (opcao2 != 9) {
+    while (opcao2 != 10) {
 
         System.out.println("1-Cadastrar empregado");
         System.out.println("2-Listar empregados");
@@ -75,7 +75,8 @@ private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC 
         System.out.println("6-Emprestar livros");
         System.out.println("7-Listar empréstimos");
         System.out.println("8-Consultar empréstimos por CPF");
-        System.out.println("9-Voltar");
+        System.out.println("9-Reativar cadastro");
+        System.out.println("10-Voltar");
         
         opcao2 = ValidadorM.lerInt(sc);
         
@@ -85,12 +86,13 @@ private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC 
         case 1 -> executar(() -> empregado.CadastrarEmpregado(sc));
         case 2 -> executar(() -> empregado.ListarEmpregado());
         case 3 -> executar(() -> empregado.BuscarEmpregado(sc));
-        case 4 -> executar(() -> empregado.RemoveEmpregado(sc));
+        case 4 -> executar(() -> empregado.RemoveEmpregado(sc, emprestimo));
         case 5 -> executar(() -> empregado.AtualizarDadosEmpregado(sc));
         case 6 -> executar(() -> empregado.EmprestarLivros(biblioteca, cliente, emprestimo, sc));
         case 7 -> executar(() -> empregado.ListarEmprestimo(emprestimo));
         case 8 -> executar(() -> empregado.ConsultarEmprestimoPorCPF(emprestimo, sc));
-        case 9 -> System.out.println("Voltando ao menu principal...");
+        case 9 -> executar(() -> empregado.ReativarCadastro(sc));
+        case 10 -> System.out.println("Voltando ao menu principal...");
         default -> System.out.println("Opcao invalida");
         }
     }
