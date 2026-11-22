@@ -31,4 +31,18 @@ public class EmprestimoC {
         }
         return false;
     }
+
+    public boolean possuiEmprestimoAtivoLivro(Livro livro) {
+
+        for (EmprestimoM emprestimo : vetEmprestimo) {
+
+            if (emprestimo.isAtivo() &&
+                emprestimo.getLivro() == livro) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

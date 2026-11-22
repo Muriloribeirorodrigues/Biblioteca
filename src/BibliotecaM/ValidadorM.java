@@ -80,7 +80,7 @@ public final class ValidadorM {
                 int numero = Integer.parseInt(sc.nextLine().trim());
 
                 if (numero < 0){
-                    System.out.println("Coloque numeros positivos");
+                    System.out.println("O numero nao pode ser negativo");
                     continue;
                 }
                 return numero;

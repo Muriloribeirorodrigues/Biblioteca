@@ -64,20 +64,26 @@ public class BibliotecaC {
         }
         return null;
     }   
-    public void RemoveLivro(Scanner sc){
+    public void RemoveLivro(Scanner sc, EmprestimoC emprestimos){
         if(SemLivro()){
             return;
         }
-        System.out.println("Digite o nome do livro que deseja remover: ");
-        String nomeLivro = sc.nextLine();
-        for (int i = 0; i < vetBiblioteca.size(); i++) {
-            if (vetBiblioteca.get(i).getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
-                vetBiblioteca.remove(i);
-                System.out.println("Livro removido com sucesso.");
-                return;
-            }
+        String Nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o cpf do empregado que deseja remover: ");
+        Livro livro = BuscarPorNome(Nomelivro);
+
+        if(livro == null){
+            System.out.println("Livro nao encontrado");
+            return;
         }
-        System.out.println("Nenhum livro cadastrado com esse nome");
+
+        if(emprestimos.possuiEmprestimoAtivoLivro(livro)){
+            System.out.println("Livro possui emprestimo em andamento e nao pode ser removido");
+            return;
+        }
+
+        vetBiblioteca.remove(livro);
+        System.out.println("Livro removido com sucesso");
+        
     }
     public void AtualizarDadosLivro(Scanner sc){
         if(SemLivro()){
