@@ -22,4 +22,13 @@ public class EmprestimoC {
         }
         return false;
     }
+
+    public boolean possuiEmprestimosAtivosEmpregado(String cpf){
+        for(EmprestimoM emprestimo : vetEmprestimo){
+            if(emprestimo.isAtivo() && emprestimo.getEmpregado().getCPF().equals(cpf)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

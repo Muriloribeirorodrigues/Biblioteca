@@ -64,7 +64,9 @@ public class EmpregadoC {
             return;
         }
         for (EmpregadoM empregado : vetEmpregado){
+            if(empregado.isAtivo()){
             empregado.PrintEmpregado();
+            }
         }
     }
     public void BuscarEmpregado(Scanner sc){
@@ -73,7 +75,7 @@ public class EmpregadoC {
         }
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja buscar: ");
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getCPF().equals(cpf)) {
+            if (empregado.getCPF().equals(cpf) && empregado.isAtivo()) {
                 empregado.PrintEmpregado();
                 return;
             }
@@ -82,7 +84,7 @@ public class EmpregadoC {
     }
     public EmpregadoM BuscarEmpregadoPorCPF(String cpf){
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getCPF().equals(cpf)) {
+            if (empregado.getCPF().equals(cpf) && empregado.isAtivo()) {
                 return empregado;
             }
         }
@@ -107,7 +109,7 @@ public class EmpregadoC {
             System.out.println("Empregado nao encontrado");
                 return;
             }
-        if(emprestimos.possuiEmprestimosAtivos(cpf)){
+        if(emprestimos.possuiEmprestimosAtivosEmpregado(cpf)){
             System.out.println("Empregado possui um emprestimo ativo e nao pode ser removido");
             return;
         }
@@ -141,23 +143,23 @@ public class EmpregadoC {
                           }
                 case 2 -> {empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
                     System.out.println("Alteracao feita com sucesso");
-                }
+                          }
                 case 3 -> {empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
                     System.out.println("Alteracao feita com sucesso");
-                }
+                          }
                 case 4 -> {empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do empregado: "));
                     System.out.println("Alteracao feita com sucesso");
-                }
+                          }
                 case 5 -> {empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
                     System.out.println("Alteracao feita com sucesso");
-                }
+                          }
                 case 6 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
                            empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
                            empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
                            empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo Sexo do empregado: "));
                            empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
                            System.out.println("Alteracao feita com sucesso");
-                }
+                          }
                 case 7 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
