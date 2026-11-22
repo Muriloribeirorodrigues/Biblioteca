@@ -78,6 +78,7 @@ public class EmprestimoM{
         if(!estaAtrasado()){
             return 0;
         }
-        return Duration.between(prazoDevolucao, referencia()).toDays();
+        long segundos = Duration.between(prazoDevolucao, referencia()).getSeconds();
+        return (segundos + 86399)/86400;
     }
 }

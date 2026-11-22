@@ -219,6 +219,7 @@ public class EmpregadoC {
                 System.out.println(emprestimo);
             }
         }
+        System.out.println("Sem emprestimos ativos");
     }
     public void ConsultarEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
         if (SemEmprestimo(emprestimos)){
@@ -253,87 +254,6 @@ public class EmpregadoC {
         System.out.println("Sem empregados cadastrados");
         return true;
     }
-    public void AlterarNome(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(cpfempregado)){
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empregado: ");
-                empregado.setNome(novoNome);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Empregado nao encontrado");
-    }
-    public void AlterarTelefone(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(cpfempregado)){
-                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empregado: ");
-                empregado.setTelefone(novotelefone);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Empregado nao encontrado");
-    }
-    public void AlterarDataNascimento(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(cpfempregado)){
-                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empregado: ");
-                empregado.setNascimento(novoNascimento);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Empregado nao encontrado");
-    }
-    public void AlterarSexo(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(cpfempregado)){
-                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empregado: ");
-                empregado.setSexo(novosexo);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Empregado nao encontrado");
-    }
-    public void AlterarCargo(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(cpfempregado)){
-                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empregado: ");
-                empregado.setCargo(novocargo);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Empregado nao encontrado");
-    }
-    public void AlterarTudo(Scanner sc){
-        String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
-        for(EmpregadoM empregado : vetEmpregado){
-            if(empregado.getCPF().equals(cpfempregado)){
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do empregado: ");
-                empregado.setNome(novoNome);
-                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do empregado: ");
-                empregado.setTelefone(novotelefone);
-                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do empregado: ");
-                empregado.setNascimento(novoNascimento);
-                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do empregado: ");
-                empregado.setSexo(novosexo);
-                String novocargo = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo cargo do empregado: ");
-                empregado.setCargo(novocargo);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Empregado nao encontrado");
-    }
-
     public void ReativarCadastro(Scanner sc){
         boolean encontrou = false;
         for(EmpregadoM Empregado : vetEmpregado){

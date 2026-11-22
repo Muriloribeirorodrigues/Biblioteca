@@ -16,7 +16,7 @@ public class BibliotecaC {
 
     public void CadastrarLivro(Scanner sc){
         String NomeDoLivro = ValidadorM.lerTextoObrigatorio(sc, "Nome do Livro: ");
-        if(BuscarLivro(NomeDoLivro) != null){
+        if(BuscarLivroFuncao(NomeDoLivro) != null){
             System.out.println("Nome de livro ja existente");
             return;
         }
@@ -56,7 +56,7 @@ public class BibliotecaC {
         }
         System.out.println("Livro não encontrado.");
     }
-    public Livro BuscarLivro(String NomeDoLivro){
+    public Livro BuscarLivroFuncao(String NomeDoLivro){
         for (Livro livro : vetBiblioteca) {
             if (livro.getNomeDoLivro().equalsIgnoreCase(NomeDoLivro)) {
                 return livro;

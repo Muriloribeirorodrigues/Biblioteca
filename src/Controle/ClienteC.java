@@ -153,8 +153,8 @@ public class ClienteC {
                 }
                 case 5 -> {cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
                            cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
-                           cliente.setNascimento(ValidadorM.lerData(sc, "Digite o novo nome do cliente: "));
-                           cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo nome do cliente: "));
+                           cliente.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do cliente: "));
+                           cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do cliente: "));
                            System.out.println("Alteracao feita com sucesso");
                 }
                 case 6 -> System.out.println("Voltar");
@@ -220,73 +220,6 @@ public class ClienteC {
         }
         System.out.println("Sem clientes ativos");
         return true;
-    }
-    public void AlterarNome(Scanner sc){
-        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do cliente: ");
-                cliente.setNome(novoNome);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Cliente nao encontrado");
-    }
-    public void AlterarTelefone(Scanner sc){
-        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
-                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do cliente: ");
-                cliente.setTelefone(novotelefone);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Cliente nao encontrado");
-    }
-    public void AlterarDataNascimento(Scanner sc){
-        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
-                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do cliente: ");
-                cliente.setNascimento(novoNascimento);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Cliente nao encontrado");
-    }
-    public void AlterarSexo(Scanner sc){
-        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
-                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
-                cliente.setSexo(novosexo);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-        }
-        System.out.println("Cliente nao encontrado");
-    }
-    public void AlterarTudo(Scanner sc){
-        String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        for(ClienteM cliente : vetClientes){
-            if(cliente.getCPF().equals(cpfcliente)){
-                String novoNome = ValidadorM.lerTextoObrigatorio(sc,"Digite o novo nome do cliente: ");
-                cliente.setNome(novoNome);
-                String novotelefone = ValidadorM.lerTelefone(sc,"Digite o novo telefone do cliente: ");
-                cliente.setTelefone(novotelefone);
-                String novoNascimento = ValidadorM.lerData(sc,"Digite a nova data de nascimento do cliente: ");
-                cliente.setNascimento(novoNascimento);
-                char novosexo = ValidadorM.lerSexo(sc,"Digite o novo sexo do cliente: ");
-                cliente.setSexo(novosexo);
-                System.out.println("Alteracao feita com sucesso");
-                return;
-            }
-            
-        }
-        System.out.println("Cliente nao encontrado");
     }
     public void ReativarCadastro(Scanner sc){
         boolean encontrou = false;

@@ -1,5 +1,6 @@
 package BibliotecaM;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Scanner;
@@ -45,7 +46,7 @@ public final class ValidadorM {
         System.out.println(mensagem);
         try {
             return ValidadorM.formatarData(sc.nextLine());
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | DateTimeParseException e) {
             System.out.println(e.getMessage());
             }
         }
