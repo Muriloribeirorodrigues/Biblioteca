@@ -21,7 +21,7 @@ public class Main {
             opcao = ValidadorM.lerInt(sc);
 
             switch (opcao) {
-                case 1 -> executar(() -> menuLivros(sc, biblioteca));
+                case 1 -> executar(() -> menuLivros(sc, biblioteca, emprestimo));
                 case 2 -> executar(() -> menuEmpregado(sc, empregado, biblioteca, cliente, emprestimo));
                 case 3 -> executar (() -> menuCliente(sc, cliente, biblioteca, empregado, emprestimo));
                 case 4 -> System.out.println("Saindo do programa");
@@ -31,7 +31,7 @@ public class Main {
 
         sc.close();
     }
-    private static void menuLivros(Scanner sc, BibliotecaC biblioteca){
+    private static void menuLivros(Scanner sc, BibliotecaC biblioteca, EmprestimoC emprestimo){
 
         int opcao2 = 0;
 
@@ -51,7 +51,7 @@ public class Main {
                 case 1 -> executar(() -> biblioteca.CadastrarLivro(sc));
                 case 2 -> executar(() -> biblioteca.ListarLivro());
                 case 3 -> executar(() -> biblioteca.BuscarLivro(sc));
-                case 4 -> executar(() -> biblioteca.RemoveLivro(sc));
+                case 4 -> executar(() -> biblioteca.RemoveLivro(sc, emprestimo));
                 case 5 -> executar(() -> biblioteca.AtualizarDadosLivro(sc));
                 case 6 -> executar(() -> biblioteca.AlterarEstoque(sc));
                 case 7 -> executar(() -> biblioteca.ListarLivroPor(sc));

@@ -68,7 +68,7 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        String Nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o cpf do empregado que deseja remover: ");
+        String Nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja remover: ");
         Livro livro = BuscarPorNome(Nomelivro);
 
         if(livro == null){
