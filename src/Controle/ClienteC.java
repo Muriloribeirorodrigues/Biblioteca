@@ -73,7 +73,7 @@ public class ClienteC {
             return;
         }
         String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja buscar: ");
-        ClienteM cliente = BuscarClientePorCPF(cpfFormatado);
+        ClienteM cliente = BuscarPorCPF(cpfFormatado);
         if(cliente == null){
             System.out.println("Cliente nao encontrado");
             return;
@@ -81,7 +81,7 @@ public class ClienteC {
         cliente.PrintCliente();
     }
 
-    public ClienteM BuscarClientePorCPF(String cpf){
+    public ClienteM BuscarPorCPF(String cpf){
         for (ClienteM cliente : vetClientes) {
             if (cliente.getCPF().equals(cpf) && cliente.isAtivo()) {
                 return cliente;
@@ -104,7 +104,7 @@ public class ClienteC {
             return;
         }
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do cliente que deseja remover: ");
-        ClienteM cliente = BuscarClientePorCPF(cpf);
+        ClienteM cliente = BuscarPorCPF(cpf);
         if(cliente == null){
             System.out.println("Cliente nao encontrado");
                 return;
@@ -122,7 +122,7 @@ public class ClienteC {
             return;
         }
         String cpfcliente = ValidadorM.lerCPF(sc,"Digite o CPF do cliente que deseja atualizar: ");
-        ClienteM cliente = BuscarClientePorCPF(cpfcliente);
+        ClienteM cliente = BuscarPorCPF(cpfcliente);
             if(cliente == null){
                 System.out.println("Cliente nao encontrado");
                 return;
@@ -139,14 +139,23 @@ public class ClienteC {
             opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
-                case 1 -> cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
-                case 2 -> cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
-                case 3 -> cliente.setNascimento(ValidadorM.lerData(sc, "Digite o novo nome do cliente: "));
-                case 4 -> cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo nome do cliente: "));
+                case 1 -> {cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
+                case 2 -> {cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
+                case 3 -> {cliente.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do cliente: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
+                case 4 -> {cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do cliente: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
                 case 5 -> {cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
                            cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
                            cliente.setNascimento(ValidadorM.lerData(sc, "Digite o novo nome do cliente: "));
                            cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo nome do cliente: "));
+                           System.out.println("Alteracao feita com sucesso");
                 }
                 case 6 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");

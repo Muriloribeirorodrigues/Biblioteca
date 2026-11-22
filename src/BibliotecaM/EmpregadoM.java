@@ -3,6 +3,7 @@ package BibliotecaM;
 public class EmpregadoM extends Pessoa{
     
     private String Cargo;
+    private boolean ativo;
 
     public EmpregadoM(String nome, String telefone, String cpf, String nascimento, String cargo, char sexo){
         super(nome, telefone, cpf, nascimento, sexo);
@@ -17,6 +18,17 @@ public class EmpregadoM extends Pessoa{
         this.Cargo = cargo;
     }
 
+    public boolean isAtivo(){
+        return ativo;
+    }
+
+    public void desativar(){
+        this.ativo = false;
+    }
+
+    public void ativar(){
+        this.ativo = true;
+    }
 
     public void PrintEmpregado(){
         System.out.println("Nome: "+this.getNome());

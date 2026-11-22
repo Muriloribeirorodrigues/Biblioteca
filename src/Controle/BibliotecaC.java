@@ -16,6 +16,10 @@ public class BibliotecaC {
 
     public void CadastrarLivro(Scanner sc){
         String NomeDoLivro = ValidadorM.lerTextoObrigatorio(sc, "Nome do Livro: ");
+        if(BuscarLivro(NomeDoLivro) != null){
+            System.out.println("Nome de livro ja existente");
+            return;
+        }
 
         String Autor = ValidadorM.lerTextoObrigatorio(sc, "Autor");
 
@@ -51,6 +55,14 @@ public class BibliotecaC {
             }
         }
         System.out.println("Livro não encontrado.");
+    }
+    public Livro BuscarLivro(String NomeDoLivro){
+        for (Livro livro : vetBiblioteca) {
+            if (livro.getNomeDoLivro().equals(NomeDoLivro)) {
+                return livro;
+            }
+        }
+        return null;
     }   
     public void RemoveLivro(Scanner sc){
         if(SemLivro()){

@@ -20,10 +20,6 @@ public class EmpregadoC {
 
     public void CadastrarEmpregado(Scanner sc){
 
-        String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
-
-        String telefone = ValidadorM.lerTelefone(sc, "Telefone");
-
         String CPF = ValidadorM.lerCPF(sc, "CPF: ");
         for (EmpregadoM empregado : vetEmpregado){
             if(empregado.getCPF().equals(CPF)){
@@ -31,6 +27,30 @@ public class EmpregadoC {
                 return;
             }
         }
+        
+        EmpregadoM existente = BuscaEmpregadosPorCPFIncluindoInativos(CPF);
+
+        if (existente != null){
+            if(existente.isAtivo()){
+                System.out.println("Cpf ja cadastrado");
+                return;
+            }
+            System.out.println("Ja existe um cadastro inativo com esse cpf");
+            System.out.println("Deseja reativar esse cadastro? (S/N)");
+            String resposta = sc.nextLine().trim();
+            if(resposta.equalsIgnoreCase("S")){
+                existente.ativar();
+                System.out.println("Empregado reativado com sucesso");
+            }
+            else{
+                System.out.println("Operacao cancelada");
+            }
+            return;
+        }
+
+        String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
+
+        String telefone = ValidadorM.lerTelefone(sc, "Telefone");
 
         String nascimento = ValidadorM.lerData(sc, "Data de nascimento");
 
@@ -74,6 +94,14 @@ public class EmpregadoC {
         }
         return null;
     }
+    private EmpregadoM BuscaEmpregadosPorCPFIncluindoInativos(String cpf){
+        for(EmpregadoM empregado : vetEmpregado){
+            if(empregado.getCPF().equals(cpf)){
+                return empregado;
+            }
+        }
+        return null;
+    }
     public void RemoveEmpregado(Scanner sc){
         if(SemEmpregado()){
             return;
@@ -111,16 +139,27 @@ public class EmpregadoC {
             opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
-                case 1 -> empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
-                case 2 -> empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
-                case 3 -> empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
-                case 4 -> empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do empregado: "));
-                case 5 -> empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
+                case 1 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
+                           System.out.println("Alteracao feita com sucesso");
+                          }
+                case 2 -> {empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
+                case 3 -> {empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
+                case 4 -> {empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do empregado: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
+                case 5 -> {empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
+                    System.out.println("Alteracao feita com sucesso");
+                }
                 case 6 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
                            empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
                            empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
                            empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo Sexo do empregado: "));
                            empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
+                           System.out.println("Alteracao feita com sucesso");
                 }
                 case 7 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
@@ -293,5 +332,32 @@ public class EmpregadoC {
             }
         }
         System.out.println("Empregado nao encontrado");
+    }
+
+    public void ReativarCadastro(Scanner sc){
+        boolean encontrou = false;
+        for(EmpregadoM Empregado : vetEmpregado){
+            if(!Empregado.isAtivo()){
+                Empregado.PrintEmpregado();
+                encontrou = true;
+            }
+        }
+        if(!encontrou){
+            System.out.println("Nao existem Empregados inativos");
+            return;
+        }
+        String cpf = ValidadorM.lerCPF(sc, "Digite o cpf que deseja reativar");
+        for(EmpregadoM Empregado : vetEmpregado){
+            if(Empregado.getCPF().equals(cpf)){
+                if(Empregado.isAtivo()){
+                System.out.println("Empregado ja possui cpf ativado");
+                return;
+                }
+            Empregado.ativar();
+            System.out.println("Empregado reativado com sucesso");
+            return;
+            }
+        }
+        System.out.println("Nao existe esse cpf no sistema");
     }
 }
