@@ -172,7 +172,7 @@ public class EmpregadoC {
         }
         String cpf = ValidadorM.lerCPF(sc, "Digite o cpf do empregado que deseja realizar o empréstimo: ");
         for (EmpregadoM empregado : vetEmpregado) {
-            if (empregado.getCPF().equalsIgnoreCase(cpf)) {
+            if (empregado.getCPF().equalsIgnoreCase(cpf) && empregado.isAtivo()) {
                 System.out.println("Livros disponiveis para emprestimo: ");
                 for (Livro livro : biblioteca.getVetBiblioteca()) {
                     System.out.println("- " + livro.getNomeDoLivro());
@@ -246,11 +246,12 @@ public class EmpregadoC {
         return false;
     }
     private boolean SemEmpregado(){
-        if (vetEmpregado.isEmpty()){
-            System.out.println("Sem empregados cadastrados");
-            return true;
-        }
-        return false;
+        for(EmpregadoM empregado : vetEmpregado)
+            if (empregado.isAtivo()){
+                return false;
+            }
+        System.out.println("Sem empregados cadastrados");
+        return true;
     }
     public void AlterarNome(Scanner sc){
         String cpfempregado = ValidadorM.lerCPF(sc,"Digite o CPF do empregado que deseja atualizar: ");
