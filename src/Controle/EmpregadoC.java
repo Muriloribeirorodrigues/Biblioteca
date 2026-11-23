@@ -290,7 +290,7 @@ public class EmpregadoC {
             }
         }
     }
-    public void ConsultarEmprestimoAtivosPorCPF(EmprestimoC emprestimos, Scanner sc){
+    public void ConsultarEmprestimosAtivosPorCPF(EmprestimoC emprestimos, Scanner sc){
         if (SemEmprestimo(emprestimos)){
             return;
         }
@@ -326,16 +326,16 @@ public class EmpregadoC {
         if(SemEmprestimo(emprestimos)){
             return;
         }
-        opcao = 0;
+        int opcao = 0;
         while(opcao !=3){
             System.out.println("1 - Listar emprestimos ativos de um cpf");
             System.out.println("2 - Listar historico de emprestimos de um cpf");
             System.out.println("3 - Voltar");
 
-            opcao = ValidadorM.lerInt(sc)
+            opcao = ValidadorM.lerInt(sc);
             switch(opcao){
-                case 1 -> ConsultarEmprestimosAtivosPorCPF(emprestimos);
-                case 2 -> ConsultarHistoricoDeEmprestimoPorCPF(emprestimos);
+                case 1 -> ConsultarEmprestimosAtivosPorCPF(emprestimos, sc);
+                case 2 -> ConsultarHistoricoDeEmprestimoPorCPF(emprestimos, sc);
                 case 3 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
