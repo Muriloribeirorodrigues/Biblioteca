@@ -247,17 +247,46 @@ public class EmpregadoC {
 
         System.out.println("Emprestimo realizado com sucesso!");
     }
-    public void ListarEmprestimo(EmprestimoC emprestimos){
+    public void ListarEmprestimosAtivos(EmprestimoC emprestimos){
         if (SemEmprestimo(emprestimos)){
             return;
         }
+        int encontrados = 0;
         for (EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
             if (emprestimo.isAtivo() && emprestimo.getCliente().isAtivo()) {
                 System.out.println(emprestimo);
-                return;
+                encontrados++;
             }
         }
-        System.out.println("Sem emprestimos ativos");
+        if(encontrados == 0){
+            System.out.println("Sem emprestimos ativos");
+        }
+    }
+    public void HistoricodeEmprestimos(EmprestimoC emprestimos){
+        if(SemEmprestimo(emprestimos)){
+            return;
+        }
+        for (EmprestimoM emprestimo : emprestimos.getVetEmprestimo()){
+            System.out.println(emprestimo);
+        }
+    }
+    public void ListarEmprestimos(EmprestimoC emprestimos){
+        if(SemEmprestimo(emprestimos)){
+            return;
+        }
+        int opcao = 0;
+        while(opcao!=3){
+            System.out.println("1 - Listar emprestimos ativos");
+            System.out.println("2 - Mostrar Historico de emprestimos");
+            System.out.println("3 - Voltar");
+
+            switch(opcao = 0){
+                case 1 -> ListarEmprestimosAtivos(emprestimos);
+                case 2 -> HistoricodeEmprestimos(emprestimos);
+                case 3 -> System.out.println("Voltar");
+                default -> System.out.println("Opcao invalida");
+            }
+        }
     }
     public void ConsultarEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
         if (SemEmprestimo(emprestimos)){
