@@ -270,7 +270,7 @@ public class BibliotecaC {
         System.out.println("Ja existe outro livro com esse nome");
         return;
         }
-        livro.SetNomeDoLivro(nomelivro);
+        livro.SetNomeDoLivro(novonome);
         String novoautor = ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do autor: ");
         livro.SetAutor(novoautor);
         String novogenero = ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do genero: ");
