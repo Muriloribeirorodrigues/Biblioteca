@@ -46,7 +46,7 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        String nomeLivro = ValidadorM.lerTextoSemNumero(sc,"Digite o nome do livro que deseja buscar: ");
+        String nomeLivro = ValidadorM.lerTextoObrigatorio(sc,"Digite o nome do livro que deseja buscar: ");
         for (Livro livro : vetBiblioteca) {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
                 livro.PrintBiblioteca();
@@ -67,7 +67,7 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        String Nomelivro = ValidadorM.lerTextoSemNumero(sc, "Digite o nome do livro que deseja remover: ");
+        String Nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja remover: ");
         Livro livro = BuscarLivroFuncao(Nomelivro);
 
         if(livro == null){

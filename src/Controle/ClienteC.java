@@ -171,7 +171,7 @@ public class ClienteC {
             return;
         }
         String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja devolver o livro: ");
-        String nomelivro = ValidadorM.lerTextoSemNumero(sc, "Digite o nome do livro que deseja devolver: ");
+        String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja devolver: ");
         for(EmprestimoM emprestimo :  emprestimos.getVetEmprestimo()){
             if(emprestimo.isAtivo() && emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.getLivro().getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 emprestimo.devolver();

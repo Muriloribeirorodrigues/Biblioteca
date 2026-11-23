@@ -194,7 +194,7 @@ public class EmpregadoC {
             }
         }
 
-        String nomeLivro = ValidadorM.lerTextoSemNumero(
+        String nomeLivro = ValidadorM.lerTextoObrigatorio(
             sc, "Digite o nome do livro que deseja emprestar: "
         );
 
