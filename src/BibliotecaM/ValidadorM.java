@@ -1,7 +1,7 @@
 package BibliotecaM;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
@@ -37,7 +37,14 @@ public final class ValidadorM {
         
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
         String formatada = digitos.substring(0, 2) + "/" + digitos.substring(2, 4) + "/" + digitos.substring(4, 8);
-        LocalDate.parse(formatada, formato);
+        try{
+            LocalDate date = LocalDate.parse(formatada, formato);
+            if(date.isAfter(LocalDate.now())){
+                throw new IllegalArgumentException("A data nao pode ser no futuro");
+            }
+        }catch(DateTimeParseException e){
+            throw new IllegalArgumentException("Data invalida. Esse dia nao existe no calendario");
+        }
         return formatada;
     }
 
@@ -106,6 +113,16 @@ public final class ValidadorM {
                 return texto;
             }
             System.out.println("Este campo nao pode ficar vazio");
+        }
+    }
+
+    public static String lerTextoSemNumero(Scanner sc, String mensagem){
+        while(true){
+            String texto = lerTextoObrigatorio(sc, mensagem);
+            if (texto.matches("(?=.*\\p{L})[\\p{L} '.-]+")){
+                return texto;
+            }
+            System.out.println("Esse campo deve conter apenas letras");
         }
     }
 }

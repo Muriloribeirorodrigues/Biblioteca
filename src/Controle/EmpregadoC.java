@@ -42,13 +42,13 @@ public class EmpregadoC {
             return;
         }
 
-        String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
+        String NomeCompleto = ValidadorM.lerTextoSemNumero(sc, "Nome: ");
 
         String telefone = ValidadorM.lerTelefone(sc, "Telefone: ");
 
         String nascimento = ValidadorM.lerData(sc, "Data de nascimento: ");
 
-        String cargo = ValidadorM.lerTextoObrigatorio(sc, "Cargo: ");
+        String cargo = ValidadorM.lerTextoSemNumero(sc, "Cargo: ");
 
         char sexo = ValidadorM.lerSexo(sc, "Digite M (Masculino) ou F (Feminino): ");
 
@@ -138,7 +138,7 @@ public class EmpregadoC {
                 opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
-                case 1 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
+                case 1 -> {empregado.setNome(ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do empregado: "));
                            System.out.println("Alteracao feita com sucesso");
                           }
                 case 2 -> {empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
@@ -153,7 +153,7 @@ public class EmpregadoC {
                 case 5 -> {empregado.setCargo(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo cargo do empregado: "));
                     System.out.println("Alteracao feita com sucesso");
                           }
-                case 6 -> {empregado.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do empregado: "));
+                case 6 -> {empregado.setNome(ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do empregado: "));
                            empregado.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do empregado: "));
                            empregado.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do empregado: "));
                            empregado.setSexo(ValidadorM.lerSexo(sc, "Digite o novo Sexo do empregado: "));
@@ -194,7 +194,7 @@ public class EmpregadoC {
             }
         }
 
-        String nomeLivro = ValidadorM.lerTextoObrigatorio(
+        String nomeLivro = ValidadorM.lerTextoSemNumero(
             sc, "Digite o nome do livro que deseja emprestar: "
         );
 

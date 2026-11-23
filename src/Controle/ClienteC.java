@@ -42,7 +42,7 @@ public class ClienteC {
             return;
         }
 
-        String NomeCompleto = ValidadorM.lerTextoObrigatorio(sc, "Nome: ");
+        String NomeCompleto = ValidadorM.lerTextoSemNumero(sc, "Nome: ");
 
         String telefone = ValidadorM.lerTelefone(sc, "Telefone: ");
 
@@ -139,7 +139,7 @@ public class ClienteC {
             opcao = ValidadorM.lerInt(sc);
 
             switch(opcao){
-                case 1 -> {cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
+                case 1 -> {cliente.setNome(ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do cliente: "));
                     System.out.println("Alteracao feita com sucesso");
                 }
                 case 2 -> {cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
@@ -151,7 +151,7 @@ public class ClienteC {
                 case 4 -> {cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do cliente: "));
                     System.out.println("Alteracao feita com sucesso");
                 }
-                case 5 -> {cliente.setNome(ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do cliente: "));
+                case 5 -> {cliente.setNome(ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do cliente: "));
                            cliente.setTelefone(ValidadorM.lerTelefone(sc, "Digite o novo telefone do cliente: "));
                            cliente.setNascimento(ValidadorM.lerData(sc, "Digite a nova data de nascimento do cliente: "));
                            cliente.setSexo(ValidadorM.lerSexo(sc, "Digite o novo sexo do cliente: "));
@@ -171,8 +171,7 @@ public class ClienteC {
             return;
         }
         String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja devolver o livro: ");
-        System.out.println("Digite o nome do livro que deseja devolver: ");
-                String nomelivro = sc.nextLine();
+        String nomelivro = ValidadorM.lerTextoSemNumero(sc, "Digite o nome do livro que deseja devolver: ");
         for(EmprestimoM emprestimo :  emprestimos.getVetEmprestimo()){
             if(emprestimo.isAtivo() && emprestimo.getCliente().getCPF().equals(cpfFormatado) && emprestimo.getLivro().getNomeDoLivro().equalsIgnoreCase(nomelivro)){
                 emprestimo.devolver();

@@ -21,9 +21,9 @@ public class BibliotecaC {
             return;
         }
 
-        String Autor = ValidadorM.lerTextoObrigatorio(sc, "Autor");
+        String Autor = ValidadorM.lerTextoSemNumero(sc, "Autor");
 
-        String Genero = ValidadorM.lerTextoObrigatorio(sc, "Genero");
+        String Genero = ValidadorM.lerTextoSemNumero(sc, "Genero");
 
         System.out.println("Quantidade: ");
         int Quantidade = ValidadorM.lerInt(sc);
@@ -46,8 +46,7 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        System.out.println("Digite o nome do livro que deseja buscar: ");
-        String nomeLivro = sc.nextLine();
+        String nomeLivro = ValidadorM.lerTextoSemNumero(sc,"Digite o nome do livro que deseja buscar: ");
         for (Livro livro : vetBiblioteca) {
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)) {
                 livro.PrintBiblioteca();
@@ -68,7 +67,7 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        String Nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja remover: ");
+        String Nomelivro = ValidadorM.lerTextoSemNumero(sc, "Digite o nome do livro que deseja remover: ");
         Livro livro = BuscarLivroFuncao(Nomelivro);
 
         if(livro == null){
@@ -112,8 +111,7 @@ public class BibliotecaC {
         if(SemLivro()){
             return;
         }
-        System.out.println("Qual o nome do livro que precisa de alteração de estoque: ");
-        String nomeLivro = sc.nextLine();
+        String nomeLivro = ValidadorM.lerTextoObrigatorio(sc, "Qual o nome do livro que precisa de alteração de estoque: ");
         for (Livro livro : vetBiblioteca){
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomeLivro)){
                 int opcao = 0;
@@ -129,6 +127,7 @@ public class BibliotecaC {
                         case 1 -> {System.out.println("Quanto Livro deseja adicionar? ");
                             int quantidadeAdicional = ValidadorM.lerInt(sc);
                             livro.setQuantidade(livro.getQuantidade() + quantidadeAdicional);
+                            System.out.println("Foram adicionados " + quantidadeAdicional + " ao livro " + livro.getNomeDoLivro() + " totalizando " + livro.getQuantidade());
                             return;
                         }
                         case 2 -> {System.out.println("Quantos Livro deseja retirar? ");
@@ -139,10 +138,13 @@ public class BibliotecaC {
                             }
                             else{
                                 livro.setQuantidade(livro.getQuantidade() - quantidadeRetirada);
+                                System.out.println("Foram retirados " + quantidadeRetirada + " ao livro " + livro.getNomeDoLivro() + " restando " + livro.getQuantidade());
                                 return;
                             }
                         }
-                        case 3 -> System.out.println("Voltar");
+                        case 3 -> {System.out.println("Voltar");
+                                   return;
+                                    }
                         default -> System.out.println("Opcao invalida");
                     }
                 }
@@ -158,8 +160,7 @@ public class BibliotecaC {
         for(Livro livro : vetBiblioteca){
             System.out.println("- " + livro.getGenero());
         }
-        System.out.println("Digite o gênero que deseja listar os Livro: ");
-        String genero = sc.nextLine();
+        String genero = ValidadorM.lerTextoSemNumero(sc, "Digite o gênero que deseja listar os Livro: ");
         int encontrado = 0;
         for (Livro livro : vetBiblioteca){
             if(livro.getGenero().equalsIgnoreCase(genero)){
@@ -179,7 +180,7 @@ public class BibliotecaC {
         for(Livro livro : vetBiblioteca){
             System.out.println("- " + livro.getAutor());
         }
-        String autor = ValidadorM.lerTextoObrigatorio(sc, "Digite o autor que deseja listar os Livro: ");
+        String autor = ValidadorM.lerTextoSemNumero(sc, "Digite o autor que deseja listar os Livro: ");
         int encontrado = 0;
         for (Livro livro : vetBiblioteca){
             if(livro.getAutor().equalsIgnoreCase(autor)){
@@ -236,7 +237,7 @@ public class BibliotecaC {
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
         for (Livro livro : vetBiblioteca){
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
-                String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
+                String novoautor = ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do autor");
                 livro.SetAutor(novoautor);
                 System.out.println("Alteracao feita com sucesso");
                 return;
@@ -248,7 +249,7 @@ public class BibliotecaC {
         String nomelivro = ValidadorM.lerTextoObrigatorio(sc, "Digite o nome do livro que deseja alterar");
         for (Livro livro : vetBiblioteca){
             if (livro.getNomeDoLivro().equalsIgnoreCase(nomelivro)){
-                String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
+                String novogenero = ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do genero");
                 livro.SetGenero(novogenero);
                 System.out.println("Alteracao feita com sucesso");
                 return;
@@ -269,9 +270,9 @@ public class BibliotecaC {
         System.out.println("Ja existe outro livro com esse nome");
         return;
         }
-        String novoautor = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do autor");
+        String novoautor = ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do autor");
         livro.SetAutor(novoautor);
-        String novogenero = ValidadorM.lerTextoObrigatorio(sc, "Digite o novo nome do genero");
+        String novogenero = ValidadorM.lerTextoSemNumero(sc, "Digite o novo nome do genero");
         livro.SetGenero(novogenero);
         System.out.println("Digite a nova quantidade do livro no estoque");
         int novaquantidade = ValidadorM.lerInt(sc);
