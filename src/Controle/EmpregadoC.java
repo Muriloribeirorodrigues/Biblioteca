@@ -262,7 +262,7 @@ public class EmpregadoC {
             System.out.println("Sem emprestimos ativos");
         }
     }
-    public void HistoricodeEmprestimos(EmprestimoC emprestimos){
+    public void HistoricoDeEmprestimos(EmprestimoC emprestimos){
         if(SemEmprestimo(emprestimos)){
             return;
         }
@@ -270,7 +270,7 @@ public class EmpregadoC {
             System.out.println(emprestimo);
         }
     }
-    public void ListarEmprestimos(EmprestimoC emprestimos){
+    public void ListarEmprestimos(Scanner sc, EmprestimoC emprestimos){
         if(SemEmprestimo(emprestimos)){
             return;
         }
@@ -280,15 +280,17 @@ public class EmpregadoC {
             System.out.println("2 - Mostrar Historico de emprestimos");
             System.out.println("3 - Voltar");
 
-            switch(opcao = 0){
+            opcao = ValidadorM.lerInt(sc);
+
+            switch(opcao){
                 case 1 -> ListarEmprestimosAtivos(emprestimos);
-                case 2 -> HistoricodeEmprestimos(emprestimos);
+                case 2 -> HistoricoDeEmprestimos(emprestimos);
                 case 3 -> System.out.println("Voltar");
                 default -> System.out.println("Opcao invalida");
             }
         }
     }
-    public void ConsultarEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
+    public void ConsultarEmprestimoAtivosPorCPF(EmprestimoC emprestimos, Scanner sc){
         if (SemEmprestimo(emprestimos)){
             return;
         }
@@ -302,6 +304,41 @@ public class EmpregadoC {
         }
         if(encontrado == 0){
         System.out.println("Nao existe emprestimo para o CPF informado.");
+        }
+    }
+    public void ConsultarHistoricoDeEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
+        if (SemEmprestimo(emprestimos)){
+            return;
+        }
+        String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o cpf que deseja consultar emprestimos");
+        int encontrado = 0;
+        for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
+            if (emprestimo.getCliente().getCPF().equals(cpfFormatado)) {
+                System.out.println(emprestimo);
+                encontrado++;
+            }
+        }
+        if(encontrado == 0){
+        System.out.println("Nao existe emprestimo para o CPF informado.");
+        }
+    }
+    public void ConsultarEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
+        if(SemEmprestimo(emprestimos)){
+            return;
+        }
+        opcao = 0;
+        while(opcao !=3){
+            System.out.println("1 - Listar emprestimos ativos de um cpf");
+            System.out.println("2 - Listar historico de emprestimos de um cpf");
+            System.out.println("3 - Voltar");
+
+            opcao = ValidadorM.lerInt(sc)
+            switch(opcao){
+                case 1 -> ConsultarEmprestimosAtivosPorCPF(emprestimos);
+                case 2 -> ConsultarHistoricoDeEmprestimoPorCPF(emprestimos);
+                case 3 -> System.out.println("Voltar");
+                default -> System.out.println("Opcao invalida");
+            }
         }
     }
     private boolean SemEmprestimo(EmprestimoC emprestimos){

@@ -189,7 +189,7 @@ public class ClienteC {
         }
         System.out.println("Emprestimo nao encontrado para esse cliente");
     }
-    public void ConsultarEmprestimoPorCPF(EmpregadoC empregado, EmprestimoC emprestimos, Scanner sc){
+    public void ConsultarEmprestimosAtivosPorCPF(EmprestimoC emprestimos, Scanner sc){
         if (SemClientes()) {
             return;
         }
@@ -207,6 +207,41 @@ public class ClienteC {
         }
         if (encontrado == 0) {
             System.out.println("Nao existe emprestimo para o CPF informado.");
+        }
+    }
+    public void ConsultarHistoricoDeEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
+        if (SemEmprestimo(emprestimos)){
+            return;
+        }
+        String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o cpf que deseja consultar emprestimos");
+        int encontrado = 0;
+        for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()) {
+            if (emprestimo.getCliente().getCPF().equals(cpfFormatado)) {
+                System.out.println(emprestimo);
+                encontrado++;
+            }
+        }
+        if(encontrado == 0){
+        System.out.println("Nao existe emprestimo para o CPF informado.");
+        }
+    }
+    public void ConsultarEmprestimoPorCPF(EmprestimoC emprestimos, Scanner sc){
+        if(SemEmprestimo(emprestimos)){
+            return;
+        }
+        opcao = 0;
+        while(opcao !=3){
+            System.out.println("1 - Listar emprestimos ativos de um cpf");
+            System.out.println("2 - Listar historico de emprestimos de um cpf");
+            System.out.println("3 - Voltar");
+
+            opcao = ValidadorM.lerInt(sc)
+            switch(opcao){
+                case 1 -> ConsultarEmprestimosAtivosPorCPF(emprestimos);
+                case 2 -> ConsultarHistoricoDeEmprestimoPorCPF(emprestimos);
+                case 3 -> System.out.println("Voltar");
+                default -> System.out.println("Opcao invalida");
+            }
         }
     }
     private boolean SemClientes(){
