@@ -163,11 +163,15 @@ public class ClienteC {
         }
     } 
     public void DevolverLivro(BibliotecaC biblioteca, EmpregadoC empregado, EmprestimoC emprestimos, Scanner sc){
-        if (SemClientes()) {
-            return;
+        boolean emprestimoAtivo = false;
+        for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()){
+            if(emprestimo.isAtivo()){
+                emprestimoAtivo = true;
+                break;
+            }
         }
-        if(emprestimos.getVetEmprestimo().isEmpty()){
-            System.out.println("Não ha emprestimos registrados");
+        if(!emprestimoAtivo){
+            System.out.println("Não ha emprestimos pendentes");
             return;
         }
         String cpfFormatado = ValidadorM.lerCPF(sc, "Digite o CPF do cliente que deseja devolver o livro: ");
