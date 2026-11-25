@@ -162,7 +162,7 @@ public class ClienteC {
             }
         }
     } 
-    public void DevolverLivro(BibliotecaC biblioteca, EmpregadoC empregado, EmprestimoC emprestimos, Scanner sc){
+    public void DevolverLivro(EmprestimoC emprestimos, Scanner sc){
         boolean emprestimoAtivo = false;
         for(EmprestimoM emprestimo : emprestimos.getVetEmprestimo()){
             if(emprestimo.isAtivo()){

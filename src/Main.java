@@ -121,7 +121,7 @@ private static void menuEmpregado(Scanner sc, EmpregadoC empregado, BibliotecaC 
                 case 3 -> executar(() -> cliente.BuscarClientePorCPF(sc));
                 case 4 -> executar(() -> cliente.RemoverClientePorCPF(sc, emprestimo));
                 case 5 -> executar(() -> cliente.AtualizarDadosCliente(sc));
-                case 6 -> executar(() -> cliente.DevolverLivro(biblioteca, empregado, emprestimo, sc));
+                case 6 -> executar(() -> cliente.DevolverLivro(emprestimo, sc));
                 case 7 -> executar(() -> cliente.ConsultarEmprestimoPorCPF(emprestimo, sc));
                 case 8 -> executar(() -> cliente.ReativarCadastro(sc));
                 case 9 -> System.out.println("Voltando ao menu principal...");
